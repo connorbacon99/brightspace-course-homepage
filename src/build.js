@@ -127,16 +127,12 @@ function homeBody() {
       <div class="unit-head"><span></span><span class="seg lith-${uid}"></span><h3>Unit ${u.n} · ${esc(u.name)}</h3><span class="label">${uw.length > 1 ? `Wk ${uw[0].n}–${uw[uw.length - 1].n}` : `Wk ${uw[0].n}`}</span></div>`;
     uw.forEach(w => {
       rows += `
-      <!-- WEEK ${w.n} LINK: replace # below -->
-      <a class="wk" href="#" target="_top"><span class="wk-num">W${pad(w.n)}</span><span class="seg lith-${uid}"></span><span class="wk-body"><span class="wk-title">${esc(w.title)}</span><span class="wk-topics">${esc(w.topics)}</span></span>${ARROW(16)}</a>`;
+      <a class="wk" href="${esc(C.links.weeks[w.n - 1] || "#")}" target="_top"><span class="wk-num">W${pad(w.n)}</span><span class="seg lith-${uid}"></span><span class="wk-body"><span class="wk-title">${esc(w.title)}</span><span class="wk-topics">${esc(w.topics)}</span></span>${ARROW(16)}</a>`;
     });
   });
   return `
 <!--
-  HOW TO UPDATE EACH TERM
-  Every link on this page is a plain href="#". Replace each "#" with the URL of
-  that week's Content module: open the module in Brightspace and copy the address
-  from the browser bar. Nothing else on the page needs to change.
+  Links are set in src/weeks-content.js (links section). Run ./build.sh after changing them.
 -->
 <div class="wrap page">
   <section class="hero" aria-labelledby="course-title">
@@ -148,8 +144,7 @@ function homeBody() {
     <div class="start">
       <h2>New here?</h2>
       <p>Begin with the course overview. It covers how the weeks are set up, what you'll turn in, and how to get help.</p>
-      <!-- START HERE LINK: replace # below -->
-      <a class="btn" href="#" target="_top">Start here: course overview ${ARROW(18)}</a>
+      <a class="btn" href="${esc(C.links.overview || "#")}" target="_top">Start here: course overview ${ARROW(18)}</a>
     </div>
   </section>
 
