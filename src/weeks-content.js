@@ -6,7 +6,16 @@ module.exports = {
   // Brightspace links used by the homepage. Paste full URLs from the browser bar; null leaves the link as "#".
   links: {
     overview: "https://brightspace.vanderbilt.edu/d2l/le/lessons/556903/topics/4523652",
-    weeks: [null, null, null, null, null, null, null, null]   // Week 1 … Week 8
+    weeks: [   // Week 1 … Week 8
+      "https://brightspace.vanderbilt.edu/d2l/le/lessons/556903/topics/4523621",
+      "https://brightspace.vanderbilt.edu/d2l/le/lessons/556903/topics/4523623",
+      "https://brightspace.vanderbilt.edu/d2l/le/lessons/556903/topics/4523627",
+      "https://brightspace.vanderbilt.edu/d2l/le/lessons/556903/topics/4523629",
+      "https://brightspace.vanderbilt.edu/d2l/le/lessons/556903/topics/4523631",
+      "https://brightspace.vanderbilt.edu/d2l/le/lessons/556903/topics/4523633",
+      "https://brightspace.vanderbilt.edu/d2l/le/lessons/556903/topics/4523636",
+      "https://brightspace.vanderbilt.edu/d2l/le/lessons/556903/topics/4523639"
+    ]
   },
   units: {
     u1: { n: 1, name: "Earth Materials" },

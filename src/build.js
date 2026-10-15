@@ -127,7 +127,7 @@ function homeBody() {
       <div class="unit-head"><span></span><span class="seg lith-${uid}"></span><h3>Unit ${u.n} · ${esc(u.name)}</h3><span class="label">${uw.length > 1 ? `Wk ${uw[0].n}–${uw[uw.length - 1].n}` : `Wk ${uw[0].n}`}</span></div>`;
     uw.forEach(w => {
       rows += `
-      <a class="wk" href="${esc(C.links.weeks[w.n - 1] || "#")}" target="_top"><span class="wk-num">W${pad(w.n)}</span><span class="seg lith-${uid}"></span><span class="wk-body"><span class="wk-title">${esc(w.title)}</span><span class="wk-topics">${esc(w.topics)}</span></span>${ARROW(16)}</a>`;
+      <a class="wk" href="${esc(C.links.weeks[w.n - 1] || "#")}" target="_blank" rel="noopener"><span class="wk-num">W${pad(w.n)}</span><span class="seg lith-${uid}"></span><span class="wk-body"><span class="wk-title">${esc(w.title)}</span><span class="wk-topics">${esc(w.topics)}</span></span>${ARROW(16)}</a>`;
     });
   });
   return `
@@ -144,7 +144,7 @@ function homeBody() {
     <div class="start">
       <h2>New here?</h2>
       <p>Begin with the course overview. It covers how the weeks are set up, what you'll turn in, and how to get help.</p>
-      <a class="btn" href="${esc(C.links.overview || "#")}" target="_top">Start here: course overview ${ARROW(18)}</a>
+      <a class="btn" href="${esc(C.links.overview || "#")}" target="_blank" rel="noopener">Start here: course overview ${ARROW(18)}</a>
     </div>
   </section>
 
