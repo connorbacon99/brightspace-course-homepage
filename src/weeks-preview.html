@@ -1,0 +1,693 @@
+<title>Earth Through Time Weeks</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #ECEEEA;
+  --surface: #FFFFFF;
+  --sunken: #E2E5DF;
+  --ink: #1C2220;
+  --muted: #58625D;
+  --line: #D3D8D1;
+  --accent: #1E5C78;      /* slate blue: links, buttons, chart marks */
+  --accent-ink: #FFFFFF;
+  --accent-tint: #E3EEF2;
+  --now: #C98A1A;          /* ochre: highlights */
+  --now-tint: #F6ECD8;
+  --core-in: #F2C76B;
+  --u1: #CDAA72;           /* sandstone */
+  --u2: #A0604A;           /* red beds */
+  --u3: #7E8D6E;           /* shale */
+  --u4: #8FA2B5;           /* limestone */
+  --pattern: rgba(28,34,32,.22);
+  --shadow: 0 1px 2px rgba(28,34,32,.06), 0 8px 24px rgba(28,34,32,.06);
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --r: 18px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #131816; --surface: #1C2320; --sunken: #171D1A; --ink: #E5E9E3; --muted: #9AA59E; --line: #2C3531;
+    --accent: #84BCD4; --accent-ink: #0F1A1F; --accent-tint: #1A2A31; --now: #E5AA45; --now-tint: #2D261A; --core-in: #F2C76B;
+    --u1: #B8975F; --u2: #93584A; --u3: #6F7E61; --u4: #7A8DA0; --pattern: rgba(0,0,0,.32);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #131816; --surface: #1C2320; --sunken: #171D1A; --ink: #E5E9E3; --muted: #9AA59E; --line: #2C3531;
+    --accent: #84BCD4; --accent-ink: #0F1A1F; --accent-tint: #1A2A31; --now: #E5AA45; --now-tint: #2D261A; --core-in: #F2C76B;
+    --u1: #B8975F; --u2: #93584A; --u3: #6F7E61; --u4: #7A8DA0; --pattern: rgba(0,0,0,.32);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+.label { font: 500 11px/1 var(--mono); text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+.chip { font: 500 12px/1 var(--mono); letter-spacing: .04em; padding: 6px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.lith-u1 { background: radial-gradient(circle at 30% 40%, var(--pattern) 1.1px, transparent 1.6px) 0 0 / 7px 7px, radial-gradient(circle at 70% 80%, var(--pattern) .9px, transparent 1.4px) 0 0 / 9px 9px, var(--u1); }
+.lith-u2 { background: repeating-linear-gradient(0deg, transparent 0 7px, var(--pattern) 7px 8px), radial-gradient(circle, var(--pattern) .8px, transparent 1.2px) 0 0 / 6px 8px, var(--u2); }
+.lith-u3 { background: repeating-linear-gradient(0deg, transparent 0 4px, var(--pattern) 4px 5px), repeating-linear-gradient(90deg, transparent 0 9px, var(--u3) 9px 13px), var(--u3); }
+.lith-u4 { background: repeating-linear-gradient(0deg, transparent 0 10px, var(--pattern) 10px 11px), repeating-linear-gradient(90deg, transparent 0 17px, var(--pattern) 17px 18px), var(--u4); }
+
+@keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.band { background: var(--surface); border-bottom: 1px solid var(--line); }
+.strata { height: 12px; }
+.head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: end; padding-block: 36px 40px; animation: rise .5s cubic-bezier(.2,.7,.2,1) both; }
+.head-text { display: grid; gap: 16px; min-width: 0; }
+.crumbs { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.head h1 { font-size: clamp(2.4rem, 5.6vw, 4.2rem); font-weight: 800; line-height: .98; letter-spacing: -0.03em; }
+.head .lede { font-size: 18px; line-height: 1.55; color: var(--muted); margin: 0; max-width: 60ch; }
+.meta { display: flex; gap: 8px 22px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+.meta b { color: var(--ink); font-weight: 600; }
+.coremini { display: grid; gap: 3px; justify-items: center; }
+.coremini .cm { width: 34px; height: 15px; border-left: 1px solid var(--pattern); border-right: 1px solid var(--pattern); position: relative; }
+.coremini .cm.past, .coremini .cm.future { opacity: .45; }
+.coremini .cm.here { box-shadow: 0 0 0 3px var(--now); opacity: 1; }
+.coremini .cm.here::after { content: ""; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); border: 6px solid transparent; border-right-color: var(--now); }
+.coremini .label { margin-top: 8px; }
+
+.body { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; padding-block: 40px 64px; align-items: start; }
+.aside { position: sticky; top: 20px; display: grid; gap: 16px; order: 2; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; display: grid; gap: 12px; }
+.card h2 { font-size: 1.05rem; font-weight: 700; }
+.obj { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 14.5px; line-height: 1.45; }
+.obj li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; }
+.obj li::before { content: ""; width: 8px; height: 8px; margin-top: 7px; border-radius: 2px; background: var(--now); }
+.steps { margin: 0; padding: 0; list-style: none; display: grid; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.35; }
+.steps li:first-child { border-top: 0; padding-top: 0; }
+.steps li::before { content: counter(s); width: 24px; height: 24px; border-radius: 50%; background: var(--sunken); display: grid; place-items: center; font: 600 12px/1 var(--mono); color: var(--ink); }
+.steps small { display: block; font: 500 11px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+.article { display: grid; gap: 40px; min-width: 0; order: 1; }
+.prose { display: grid; gap: 16px; max-width: 66ch; }
+.prose h2 { font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 700; line-height: 1.15; }
+.prose p { margin: 0; }
+.prose strong { font-weight: 700; }
+
+figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 24px 24px 18px; display: grid; gap: 14px; }
+figure .fig-scroll { overflow-x: auto; }
+figure svg { display: block; width: 100%; min-width: 520px; height: auto; }
+figcaption { font-size: 14px; color: var(--muted); line-height: 1.5; max-width: 70ch; }
+figcaption b { color: var(--ink); }
+svg text { font-family: var(--body); font-size: 13px; }
+svg .tb { fill: var(--ink); font-weight: 600; }
+svg .tm { fill: var(--muted); font-size: 12px; }
+svg .tb-dark { fill: #1C2220; font-weight: 700; }
+svg .tb-now { fill: var(--now); font-weight: 600; font-size: 12px; }
+svg .mono { font-family: var(--mono); font-size: 11.5px; }
+.fill-ink { fill: var(--ink); } .fill-surface { fill: var(--surface); } .fill-sunken { fill: var(--sunken); }
+.fill-accent { fill: var(--accent); } .fill-accent-tint { fill: var(--accent-tint); } .fill-now { fill: var(--now); } .fill-now-tint { fill: var(--now-tint); } .fill-corein { fill: var(--core-in); }
+.fill-u1 { fill: var(--u1); } .fill-u2 { fill: var(--u2); } .fill-u3 { fill: var(--u3); } .fill-u4 { fill: var(--u4); }
+.stroke-ink { stroke: var(--ink); } .stroke-muted { stroke: var(--muted); } .stroke-line { stroke: var(--line); } .stroke-surface { stroke: var(--surface); } .stroke-accent { stroke: var(--accent); } .stroke-now { stroke: var(--now); }
+.data { font-size: 13.5px; }
+.data summary { cursor: pointer; color: var(--accent); font-weight: 600; width: max-content; }
+.data .tbl { overflow-x: auto; margin-top: 10px; }
+.data table { border-collapse: collapse; min-width: 100%; font-variant-numeric: tabular-nums; }
+.data th, .data td { text-align: left; padding: 7px 12px 7px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.data th { font: 500 11px/1.2 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+.note { background: var(--now-tint); border-radius: var(--r); padding: 24px; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; }
+.note .pin { width: 44px; height: 44px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; color: var(--now); }
+.note h3 { font-size: 1.2rem; font-weight: 700; margin: 4px 0 8px; }
+.note p { margin: 0; max-width: 64ch; }
+
+.terms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; margin: 0; }
+.terms div { padding: 14px 0; border-top: 1px solid var(--line); }
+.terms dt { font: 700 15px/1.3 var(--body); margin-bottom: 4px; }
+.terms dd { margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.5; }
+
+.checks { display: grid; gap: 10px; }
+.checks details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.checks summary { list-style: none; cursor: pointer; padding: 16px 18px; display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 12px; align-items: start; font-weight: 600; }
+.checks summary::-webkit-details-marker { display: none; }
+.checks summary .q { font: 600 12px/1 var(--mono); width: 30px; height: 26px; border-radius: 8px; background: var(--accent-tint); color: var(--accent); display: grid; place-items: center; }
+.checks summary .reveal { font: 500 12px/1.9 var(--mono); color: var(--accent); white-space: nowrap; }
+.checks details[open] summary .reveal { color: var(--muted); }
+.checks details[open] summary .reveal::before { content: "Hide"; }
+.checks details:not([open]) summary .reveal::before { content: "Show answer"; }
+.checks .a { padding: 0 18px 18px 60px; color: var(--muted); }
+.checks summary:hover .reveal { text-decoration: underline; }
+
+.task { background: var(--accent-tint); border-radius: var(--r); padding: 28px; display: grid; gap: 16px; }
+.task h2 { font-size: 1.5rem; font-weight: 700; }
+.task ol { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; max-width: 64ch; }
+.task ol li::marker { font-family: var(--mono); font-weight: 500; color: var(--accent); }
+.deliver { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); font-size: 15px; }
+.deliver b { font-weight: 700; }
+
+.next { display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--line); }
+.next .t { font: 700 1.25rem/1.2 var(--display); }
+
+@media (max-width: 900px) {
+  .body { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .aside { position: static; order: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+}
+@media (max-width: 640px) {
+  .head { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-block: 28px 32px; }
+  .coremini { grid-auto-flow: column; justify-content: start; }
+  .coremini .cm { width: 22px; height: 12px; }
+  .coremini .cm.here::after { display: none; }
+  .coremini .label { margin: 0 0 0 10px; align-self: center; }
+  .aside { grid-template-columns: minmax(0, 1fr); }
+  .terms { grid-template-columns: minmax(0, 1fr); }
+  .note { grid-template-columns: minmax(0, 1fr); }
+  figure { padding: 16px 14px 14px; }
+  .task { padding: 22px; }
+  .checks .a { padding-left: 18px; }
+}
+.switch { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ink); color: var(--bg); }
+.switch .wrap { display: flex; gap: 6px; align-items: center; overflow-x: auto; padding-block: 10px; }
+.switch a { color: var(--bg); text-decoration: none; font: 500 12px/1 var(--mono); padding: 8px 10px; border-radius: 8px; white-space: nowrap; }
+.switch a:hover { background: color-mix(in srgb, var(--bg) 15%, transparent); }
+.switch span { font: 600 13px/1 var(--body); margin-right: 8px; white-space: nowrap; }
+.wkpage { border-bottom: 8px solid var(--ink); scroll-margin-top: 50px; }
+
+</style>
+<nav class="switch"><div class="wrap"><span>Preview · jump to</span><a href="#week1">Week 1</a><a href="#week2">Week 2</a><a href="#week3">Week 3</a><a href="#week4">Week 4</a><a href="#week5">Week 5</a><a href="#week6">Week 6</a><a href="#week7">Week 7</a><a href="#week8">Week 8</a></div></nav>
+<div class="wkpage" id="week1">
+<header class="band">
+  <div class="strata lith-u1"></div>
+  <div class="wrap head">
+    <div class="head-text">
+      <div class="crumbs"><span class="chip">GEOL 105</span><span class="chip">Week 1 of 8</span><span class="label">Unit 1 · Earth Materials</span></div>
+      <h1>Welcome to Planet Earth</h1>
+      <p class="lede">Before we read four and a half billion years of history, we need to know the planet that wrote it. This week is a tour from the crust to the core, and of how geologists know what's down there without ever seeing it.</p>
+      <div class="meta"><span><b>About 3 hours</b> this week</span><span><b>3</b> learning objectives</span><span><b>1</b> activity to submit</span></div>
+    </div>
+    <div class="coremini" aria-hidden="true"><div class="cm lith-u1 here" title="Week 1: Welcome to Planet Earth"></div><div class="cm lith-u1 future" title="Week 2: Rocks &amp; the Rock Cycle"></div><div class="cm lith-u2 future" title="Week 3: Plate Tectonics"></div><div class="cm lith-u2 future" title="Week 4: Earthquakes &amp; Volcanoes"></div><div class="cm lith-u3 future" title="Week 5: Reading the Rock Record"></div><div class="cm lith-u3 future" title="Week 6: Fossils &amp; Mass Extinctions"></div><div class="cm lith-u4 future" title="Week 7: Climate Through Time"></div><div class="cm lith-u4 future" title="Week 8: The Anthropocene"></div><span class="label">W01 / 08</span></div>
+  </div>
+</header>
+
+<div class="wrap body">
+  <aside class="aside">
+    <section class="card">
+      <h2>By the end of this week you can</h2>
+      <ul class="obj"><li>Describe Earth's layers by composition and by physical behavior</li><li>Explain how seismic waves reveal the structure of Earth's interior</li><li>Use density data to reason about what lies beneath the surface</li></ul>
+    </section>
+    <section class="card">
+      <h2>Your path this week</h2>
+      <ol class="steps"><li><span><small>Read · 45 min</small>Earth from the inside out</span></li><li><span><small>Study · 15 min</small>The interior diagram</span></li><li><span><small>Check · 15 min</small>Check your understanding</span></li><li><span><small>Lab · 90 min</small>Lab 1: How dense is Earth?</span></li><li><span><small>Reflect · 20 min</small>Field journal, entry 1</span></li></ol>
+    </section>
+  </aside>
+
+  <main class="article">
+    <section class="prose"><h2>A planet in layers</h2><p>Earth is not the same all the way through. When the young planet was hot enough to be partly molten, heavy iron sank toward the center and lighter rock rose toward the surface. Geologists call this sorting <em>differentiation</em>, and it left Earth in three main layers.</p><p>The <strong>crust</strong> is the thin outer skin. Continental crust is made mostly of granite-like rock and averages about 35 km thick, reaching 70 km under big mountain ranges. Oceanic crust is denser basalt, only 5 to 10 km thick.</p><p>The <strong>mantle</strong> is about 2,900 km thick and makes up roughly 84% of Earth's volume. It is solid rock, but over millions of years it flows very slowly, like extremely stiff putty. That slow flow drives the plate motions we'll study in Unit 2.</p><p>The <strong>core</strong> is mostly iron and nickel. The outer core is liquid, and its swirling motion generates Earth's magnetic field. The inner core is solid even though it is about 5,200 °C, close to the temperature of the Sun's surface. The pressure there is so great that the metal can't melt.</p></section>
+
+    <figure>
+      <div class="fig-scroll"><svg viewBox="0 0 760 300" role="img" aria-label="Cross-section of Earth's interior to scale: crust, mantle, outer core, inner core"><path d="M10 290A250 250 0 0 1 510 290Z" class="fill-u2"/><path d="M123.44372939883849 290A136.55627060116151 136.55627060116151 0 0 1 396.5562706011615 290Z" class="fill-now"/><path d="M212.12682467430545 290A47.873175325694554 47.873175325694554 0 0 1 307.87317532569455 290Z" class="fill-corein"/><path d="M10 290A250 250 0 0 1 510 290" class="stroke-ink" stroke-width="3" fill="none"/><line x1="4" y1="290" x2="516" y2="290" class="stroke-line" stroke-width="1.5"/><polyline points="377.4,69.3 520,42 528,42" class="stroke-ink" fill="none" stroke-width="1"/><circle cx="377.4" cy="69.3" r="3.5" class="fill-ink"/><text x="534" y="46" class="tb" text-anchor="start">Crust</text><text x="534" y="63" class="tm" text-anchor="start">5–70 km thick</text><text x="534" y="78" class="tm" text-anchor="start">rock, solid</text><polyline points="412.3,152.8 520,108 528,108" class="stroke-ink" fill="none" stroke-width="1"/><circle cx="412.3" cy="152.8" r="3.5" class="fill-ink"/><text x="534" y="112" class="tb" text-anchor="start">Mantle</text><text x="534" y="129" class="tm" text-anchor="start">to 2,900 km deep</text><text x="534" y="144" class="tm" text-anchor="start">rock, solid but slowly flowing</text><polyline points="348.3,243.1 520,174 528,174" class="stroke-ink" fill="none" stroke-width="1"/><circle cx="348.3" cy="243.1" r="3.5" class="fill-ink"/><text x="534" y="178" class="tb" text-anchor="start">Outer core</text><text x="534" y="195" class="tm" text-anchor="start">to 5,150 km deep</text><text x="534" y="210" class="tm" text-anchor="start">liquid iron and nickel</text><polyline points="285.4,284.6 520,240 528,240" class="stroke-ink" fill="none" stroke-width="1"/><circle cx="285.4" cy="284.6" r="3.5" class="fill-ink"/><text x="534" y="244" class="tb" text-anchor="start">Inner core</text><text x="534" y="261" class="tm" text-anchor="start">to the center, 6,371 km</text><text x="534" y="276" class="tm" text-anchor="start">solid iron and nickel</text></svg></div>
+      <figcaption>Earth's interior, drawn to scale. The crust is too thin to show at this size. If Earth were an apple, the crust would be thinner than its skin.</figcaption>
+      
+    </figure>
+
+    <section class="prose"><h2>Seeing through solid rock</h2><p>Nobody has ever been to the mantle. The deepest hole ever drilled reaches about 12 km, which is 0.2% of the way to the center. Almost everything we know about the deep interior comes from earthquakes.</p><p>Earthquakes send out two main kinds of body waves. <strong>P waves</strong> are compression waves that can travel through solids and liquids. <strong>S waves</strong> shake rock side to side and can only travel through solids. When seismographs around the world record a large earthquake, there is a broad zone on the far side of the planet where S waves never arrive. Something liquid is blocking them: the outer core.</p><p>In 1936 the Danish seismologist Inge Lehmann noticed faint P waves arriving in a zone where none were expected. She proposed that they were bouncing off a solid inner core, and she was right.</p></section>
+
+    <section class="note" aria-label="Field note">
+      <div class="pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+      <div><span class="label">Field note</span><h3>Kola Superdeep Borehole, Russia</h3><p>Soviet scientists started drilling here in 1970. By 1989 they had reached 12,262 meters, where the rock was about 180 °C, far hotter than expected. The heat made the rock behave almost like plastic, and the drill could go no further. It is still the deepest hole humans have ever made, and it barely got a third of the way through the continental crust.</p></div>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Key terms</h2>
+      <dl class="terms"><div><dt>Differentiation</dt><dd>The sorting of a planet into layers by density, with the heaviest material sinking to the center.</dd></div><div><dt>Lithosphere</dt><dd>The rigid outer shell: the crust plus the uppermost mantle. It is broken into tectonic plates.</dd></div><div><dt>Asthenosphere</dt><dd>The weak, slowly flowing layer of upper mantle that the plates ride on.</dd></div><div><dt>Seismic wave</dt><dd>Energy that travels through Earth after an earthquake. Its speed and path reveal what it passes through.</dd></div><div><dt>P wave</dt><dd>A compression wave. The fastest seismic wave; travels through solids and liquids.</dd></div><div><dt>S wave</dt><dd>A shear wave. Slower than P waves, and cannot travel through liquids.</dd></div></dl>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Check your understanding</h2>
+      <p style="color:var(--muted)">Try each question before you open the answer. These aren't graded.</p>
+      <div class="checks"><details><summary><span class="q">Q1</span><span>Why is the inner core solid even though it is hotter than the outer core?</span><span class="reveal"></span></summary><div class="a">Pressure. The enormous pressure at the center raises the melting point of iron above the actual temperature, so the inner core stays solid. The outer core is under less pressure, so it is liquid.</div></details><details><summary><span class="q">Q2</span><span>A seismograph on the far side of Earth records P waves from an earthquake but no S waves. What does that tell you?</span><span class="reveal"></span></summary><div class="a">S waves can't travel through liquid. Their absence on the far side shows that a liquid layer, the outer core, lies in their path.</div></details><details><summary><span class="q">Q3</span><span>Continental crust is thicker than oceanic crust. Which one is denser, and why does that matter?</span><span class="reveal"></span></summary><div class="a">Oceanic crust (basalt) is denser. When the two collide, the denser oceanic crust sinks beneath the continent. You'll see why that matters in Week 3.</div></details></div>
+    </section>
+
+    <section class="task" aria-labelledby="task-h1">
+      <span class="label">This week's activity</span>
+      <h2 id="task-h1">Lab 1: How dense is Earth?</h2>
+      <ol><li>Using the table in the lab packet, record the density of granite (2.7 g/cm³), basalt (3.0 g/cm³) and peridotite (3.3 g/cm³).</li><li>Compare those values with Earth's average density: 5.51 g/cm³.</li><li>In 3 to 4 sentences, explain what that difference tells you about the materials deep inside the planet.</li></ol>
+      <div class="deliver"><span class="label">To submit</span><b>Submit one page with your table and explanation.</b></div>
+    </section>
+
+    <div class="next">
+      <div><span class="label">Coming up in Week 2</span><div class="t">Rocks &amp; the Rock Cycle</div></div><span class="chip">Unit 1 · Earth Materials</span>
+    </div>
+  </main>
+</div></div>
+<div class="wkpage" id="week2">
+<header class="band">
+  <div class="strata lith-u1"></div>
+  <div class="wrap head">
+    <div class="head-text">
+      <div class="crumbs"><span class="chip">GEOL 105</span><span class="chip">Week 2 of 8</span><span class="label">Unit 1 · Earth Materials</span></div>
+      <h1>Rocks &amp; the Rock Cycle</h1>
+      <p class="lede">Every rock is a record of how it formed: cooled from melt, settled out of water, or squeezed by heat and pressure. Learn to read those three stories and you can read a landscape.</p>
+      <div class="meta"><span><b>About 3.5 hours</b> this week</span><span><b>3</b> learning objectives</span><span><b>1</b> activity to submit</span></div>
+    </div>
+    <div class="coremini" aria-hidden="true"><div class="cm lith-u1 past" title="Week 1: Welcome to Planet Earth"></div><div class="cm lith-u1 here" title="Week 2: Rocks &amp; the Rock Cycle"></div><div class="cm lith-u2 future" title="Week 3: Plate Tectonics"></div><div class="cm lith-u2 future" title="Week 4: Earthquakes &amp; Volcanoes"></div><div class="cm lith-u3 future" title="Week 5: Reading the Rock Record"></div><div class="cm lith-u3 future" title="Week 6: Fossils &amp; Mass Extinctions"></div><div class="cm lith-u4 future" title="Week 7: Climate Through Time"></div><div class="cm lith-u4 future" title="Week 8: The Anthropocene"></div><span class="label">W02 / 08</span></div>
+  </div>
+</header>
+
+<div class="wrap body">
+  <aside class="aside">
+    <section class="card">
+      <h2>By the end of this week you can</h2>
+      <ul class="obj"><li>Identify the three rock families by how they form</li><li>Trace a rock's path through the rock cycle</li><li>Read texture clues such as crystal size, layering and banding</li></ul>
+    </section>
+    <section class="card">
+      <h2>Your path this week</h2>
+      <ol class="steps"><li><span><small>Read · 50 min</small>Three ways to make a rock</span></li><li><span><small>Study · 15 min</small>The rock cycle diagram</span></li><li><span><small>Check · 15 min</small>Check your understanding</span></li><li><span><small>Lab · 90 min</small>Lab 2: Rock ID at home</span></li><li><span><small>Reflect · 20 min</small>Field journal, entry 2</span></li></ol>
+    </section>
+  </aside>
+
+  <main class="article">
+    <section class="prose"><h2>Three ways to make a rock</h2><p><strong>Igneous rocks</strong> crystallize from molten rock. Cooling speed controls crystal size. Magma that cools slowly deep underground grows large crystals you can see, as in granite. Lava that cools quickly at the surface makes tiny crystals, as in basalt, or even glass, as in obsidian.</p><p><strong>Sedimentary rocks</strong> form at the surface. Older rock is broken down by weathering, and the pieces are carried by water, wind or ice and laid down in layers. Over time the layers are buried, compacted and cemented into sandstone, shale or limestone. Because they form at ordinary temperatures, sedimentary rocks are where almost all fossils are found.</p><p><strong>Metamorphic rocks</strong> are existing rocks transformed by heat and pressure without melting. Minerals recrystallize and often line up in bands called foliation. Shale becomes slate, then schist, then gneiss as conditions intensify. Limestone becomes marble.</p></section>
+
+    <figure>
+      <div class="fig-scroll"><svg viewBox="0 0 680 360" role="img" aria-label="The rock cycle: igneous, sedimentary and metamorphic rocks and magma, connected by arrows"><defs><marker id="rc-ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="fill-ink"/></marker></defs><line x1="290" y1="73" x2="165" y2="274" class="stroke-ink" stroke-width="1.6" marker-end="url(#rc-ah2)"/><line x1="197" y1="300" x2="480" y2="300" class="stroke-ink" stroke-width="1.6" marker-end="url(#rc-ah2)"/><line x1="390" y1="73" x2="515" y2="274" class="stroke-ink" stroke-width="1.6" marker-end="url(#rc-ah2)"/><line x1="520" y1="277" x2="404" y2="229" class="stroke-ink" stroke-width="1.6" marker-end="url(#rc-ah2)"/><line x1="340" y1="194" x2="340" y2="78" class="stroke-ink" stroke-width="1.6" marker-end="url(#rc-ah2)"/><rect x="265" y="27" width="150" height="46" rx="12" class="fill-surface stroke-line" stroke-width="1.5"/><circle cx="287" cy="50" r="9" class="fill-u2"/><text x="305" y="55" class="tb" text-anchor="start">Igneous</text><rect x="35" y="277" width="170" height="46" rx="12" class="fill-surface stroke-line" stroke-width="1.5"/><circle cx="57" cy="300" r="9" class="fill-u1"/><text x="75" y="305" class="tb" text-anchor="start">Sedimentary</text><rect x="475" y="277" width="170" height="46" rx="12" class="fill-surface stroke-line" stroke-width="1.5"/><circle cx="497" cy="300" r="9" class="fill-u3"/><text x="515" y="305" class="tb" text-anchor="start">Metamorphic</text><rect x="285" y="196" width="110" height="38" rx="19" class="fill-now"/><text x="340" y="220" class="tb-dark" text-anchor="middle">Magma</text><text x="204" y="160" class="tm" text-anchor="end">Weathering,</text><text x="204" y="176" class="tm" text-anchor="end">erosion &</text><text x="204" y="192" class="tm" text-anchor="end">deposition</text><text x="340" y="328" class="tm" text-anchor="middle">Heat & pressure</text><text x="468" y="160" class="tm" text-anchor="start">Heat &</text><text x="468" y="176" class="tm" text-anchor="start">pressure</text><text x="352" y="140" class="tm" text-anchor="start">Cooling</text><text x="420" y="272" class="tm" text-anchor="start">Melting</text></svg></div>
+      <figcaption>The rock cycle. Given the right conditions and enough time, any rock can become any other kind.</figcaption>
+      
+    </figure>
+
+    <section class="prose"><h2>A cycle with no beginning</h2><p>In the 1780s the Scottish farmer and naturalist James Hutton realized that these processes connect. Mountains erode into sediment, sediment becomes rock, rock is buried and transformed or melted, and new rock is pushed back up to erode again.</p><p>Hutton concluded that Earth must be unimaginably old for this cycle to have run so many times. He wrote that he found "no vestige of a beginning, no prospect of an end." That idea, now called <em>deep time</em>, is the foundation of this course.</p></section>
+
+    <section class="note" aria-label="Field note">
+      <div class="pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+      <div><span class="label">Field note</span><h3>Siccar Point, Scotland</h3><p>In 1788 Hutton took two friends by boat to this headland. There, nearly vertical layers of gray rock are capped by gently sloping red sandstone. The lower layers had to be deposited, buried, tilted on end, lifted up and worn flat before the upper layers were laid on top. Hutton's companion John Playfair later wrote that &quot;the mind seemed to grow giddy by looking so far into the abyss of time.&quot;</p></div>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Key terms</h2>
+      <dl class="terms"><div><dt>Intrusive</dt><dd>Igneous rock that cooled underground. Slow cooling gives large crystals.</dd></div><div><dt>Extrusive</dt><dd>Igneous rock that cooled at the surface. Fast cooling gives small crystals or glass.</dd></div><div><dt>Lithification</dt><dd>The process of compacting and cementing loose sediment into solid rock.</dd></div><div><dt>Clastic</dt><dd>Sedimentary rock built from fragments of other rocks, like sandstone.</dd></div><div><dt>Foliation</dt><dd>Parallel bands or sheets in a metamorphic rock, caused by minerals aligning under pressure.</dd></div><div><dt>Parent rock</dt><dd>The original rock that was transformed into a metamorphic rock.</dd></div></dl>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Check your understanding</h2>
+      <p style="color:var(--muted)">Try each question before you open the answer. These aren't graded.</p>
+      <div class="checks"><details><summary><span class="q">Q1</span><span>You find two igneous rocks. One has crystals you can see, and the other has crystals too small to see. Which one cooled underground?</span><span class="reveal"></span></summary><div class="a">The one with visible crystals. Slow cooling underground gives crystals time to grow large.</div></details><details><summary><span class="q">Q2</span><span>Why are fossils almost never found in igneous rock?</span><span class="reveal"></span></summary><div class="a">Molten rock destroys organic remains. Fossils are preserved when organisms are buried in sediment at normal surface temperatures.</div></details><details><summary><span class="q">Q3</span><span>Marble and limestone are both made mostly of the mineral calcite. What's the difference?</span><span class="reveal"></span></summary><div class="a">Marble is limestone that has been recrystallized by heat and pressure. Its crystals interlock, and the original grains, pores and fossils are erased.</div></details></div>
+    </section>
+
+    <section class="task" aria-labelledby="task-h2">
+      <span class="label">This week's activity</span>
+      <h2 id="task-h2">Lab 2: Rock ID at home</h2>
+      <ol><li>Find three different rocks: a garden stone, a building stone, a countertop, or gravel.</li><li>Photograph each one next to a coin for scale.</li><li>For each rock, note crystal size, any layering or banding, and its color.</li><li>Classify each one as igneous, sedimentary or metamorphic and give one piece of evidence.</li></ol>
+      <div class="deliver"><span class="label">To submit</span><b>Upload your three photos and a three-row table.</b></div>
+    </section>
+
+    <div class="next">
+      <div><span class="label">Coming up in Week 3</span><div class="t">Plate Tectonics</div></div><span class="chip">Unit 2 · A Restless Planet</span>
+    </div>
+  </main>
+</div></div>
+<div class="wkpage" id="week3">
+<header class="band">
+  <div class="strata lith-u2"></div>
+  <div class="wrap head">
+    <div class="head-text">
+      <div class="crumbs"><span class="chip">GEOL 105</span><span class="chip">Week 3 of 8</span><span class="label">Unit 2 · A Restless Planet</span></div>
+      <h1>Plate Tectonics</h1>
+      <p class="lede">The ground under you is moving at about the speed your fingernails grow. Over millions of years, that slow drift opens oceans, raises mountains and rearranges whole continents.</p>
+      <div class="meta"><span><b>About 3 hours</b> this week</span><span><b>3</b> learning objectives</span><span><b>1</b> activity to submit</span></div>
+    </div>
+    <div class="coremini" aria-hidden="true"><div class="cm lith-u1 past" title="Week 1: Welcome to Planet Earth"></div><div class="cm lith-u1 past" title="Week 2: Rocks &amp; the Rock Cycle"></div><div class="cm lith-u2 here" title="Week 3: Plate Tectonics"></div><div class="cm lith-u2 future" title="Week 4: Earthquakes &amp; Volcanoes"></div><div class="cm lith-u3 future" title="Week 5: Reading the Rock Record"></div><div class="cm lith-u3 future" title="Week 6: Fossils &amp; Mass Extinctions"></div><div class="cm lith-u4 future" title="Week 7: Climate Through Time"></div><div class="cm lith-u4 future" title="Week 8: The Anthropocene"></div><span class="label">W03 / 08</span></div>
+  </div>
+</header>
+
+<div class="wrap body">
+  <aside class="aside">
+    <section class="card">
+      <h2>By the end of this week you can</h2>
+      <ul class="obj"><li>Summarize the evidence for continental drift and seafloor spreading</li><li>Distinguish the three types of plate boundary and the features each one creates</li><li>Connect plate motion to the rock cycle</li></ul>
+    </section>
+    <section class="card">
+      <h2>Your path this week</h2>
+      <ol class="steps"><li><span><small>Read · 50 min</small>From drift to plates</span></li><li><span><small>Study · 15 min</small>Plate boundary diagram</span></li><li><span><small>Check · 15 min</small>Check your understanding</span></li><li><span><small>Explore · 60 min</small>Map activity: Find the boundaries</span></li><li><span><small>Reflect · 20 min</small>Field journal, entry 3</span></li></ol>
+    </section>
+  </aside>
+
+  <main class="article">
+    <section class="prose"><h2>From drift to plates</h2><p>In 1912 the German meteorologist Alfred Wegener proposed that the continents had once been joined in a single landmass and had since drifted apart. His evidence was strong: the coastlines of South America and Africa fit together, the same fossil reptile, <em>Mesosaurus</em>, appears on both, and ancient glacial deposits turn up in places that are now tropical.</p><p>Most geologists rejected the idea because Wegener couldn't explain what moved the continents. The answer came from the seafloor. In the 1950s Marie Tharp, working with Bruce Heezen, mapped a deep rift valley running down the center of the Mid-Atlantic Ridge. Magnetic surveys then showed matching stripes of rock on either side of the ridges, recording flips in Earth's magnetic field as new crust formed and spread outward.</p><p>The seafloor is young. Almost none of it is older than about 200 million years, because it is constantly made at ridges and destroyed elsewhere. By the late 1960s these discoveries had come together as <strong>plate tectonics</strong>: Earth's rigid outer shell is broken into plates that move a few centimeters a year.</p></section>
+
+    <figure>
+      <div class="fig-scroll"><svg viewBox="0 0 720 270" role="img" aria-label="Three plate boundary types: divergent, convergent, transform"><defs><marker id="pb-ah3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="fill-ink"/></marker></defs><rect x="20" y="114" width="200" height="76" rx="4" class="fill-sunken"/><path d="M110 114L130 114L160 190L80 190Z" class="fill-now"/><rect x="20" y="84" width="90" height="30" class="fill-u4"/><rect x="130" y="84" width="90" height="30" class="fill-u4"/><line x1="90" y1="66" x2="40" y2="66" class="stroke-ink" stroke-width="2" marker-end="url(#pb-ah3)"/><line x1="150" y1="66" x2="200" y2="66" class="stroke-ink" stroke-width="2" marker-end="url(#pb-ah3)"/><text x="120" y="24" class="tb" text-anchor="middle">Divergent</text><text x="120" y="216" class="tm" text-anchor="middle">Plates pull apart</text><text x="120" y="233" class="tm" text-anchor="middle">e.g. Mid-Atlantic Ridge</text><rect x="260" y="110" width="200" height="80" rx="4" class="fill-sunken"/><polygon points="260,86 368,86 428,176 412,188 354,112 260,112" class="fill-u4"/><rect x="362" y="72" width="98" height="40" class="fill-u1"/><polygon points="396,72 412,48 428,72" class="fill-u2"/><circle cx="410" cy="140" r="9" class="fill-now"/><line x1="280" y1="66" x2="330" y2="66" class="stroke-ink" stroke-width="2" marker-end="url(#pb-ah3)"/><line x1="460" y1="34" x2="438" y2="34" class="stroke-ink" stroke-width="2" marker-end="url(#pb-ah3)"/><text x="360" y="24" class="tb" text-anchor="middle">Convergent</text><text x="360" y="216" class="tm" text-anchor="middle">One plate sinks beneath another</text><text x="360" y="233" class="tm" text-anchor="middle">e.g. the Andes</text><rect x="500" y="50" width="95" height="140" rx="4" class="fill-u1"/><rect x="605" y="50" width="95" height="140" rx="4" class="fill-u1"/><line x1="600" y1="44" x2="600" y2="196" class="stroke-ink" stroke-width="2" stroke-dasharray="6 5"/><line x1="547" y1="165" x2="547" y2="78" class="stroke-ink" stroke-width="2" marker-end="url(#pb-ah3)"/><line x1="652" y1="78" x2="652" y2="165" class="stroke-ink" stroke-width="2" marker-end="url(#pb-ah3)"/><text x="600" y="24" class="tb" text-anchor="middle">Transform</text><text x="600" y="216" class="tm" text-anchor="middle">Plates slide past (view from above)</text><text x="600" y="233" class="tm" text-anchor="middle">e.g. San Andreas Fault</text><rect x="190" y="252" width="14" height="10" class="fill-u4"/><text x="210" y="261" class="tm" text-anchor="start">Oceanic plate</text><rect x="310" y="252" width="14" height="10" class="fill-u1"/><text x="330" y="261" class="tm" text-anchor="start">Continental plate</text><rect x="450" y="252" width="14" height="10" class="fill-now"/><text x="470" y="261" class="tm" text-anchor="start">Magma</text></svg></div>
+      <figcaption>The three kinds of plate boundary. Divergent and convergent boundaries are shown in cross-section; the transform boundary is shown from above.</figcaption>
+      
+    </figure>
+
+    <section class="prose"><h2>Where plates meet</h2><p><strong>Divergent boundaries</strong> are where plates pull apart. Magma rises to fill the gap and forms new crust, as along the Mid-Atlantic Ridge and in Iceland.</p><p><strong>Convergent boundaries</strong> are where plates collide. When oceanic crust meets a continent, the denser ocean plate sinks back into the mantle, a process called subduction. That creates deep ocean trenches and chains of volcanoes like the Andes. When two continents collide, neither sinks easily, and the crust crumples into huge mountain ranges like the Himalaya.</p><p><strong>Transform boundaries</strong> are where plates slide past each other. Crust is neither created nor destroyed, but the plates lock and slip, causing frequent earthquakes. California's San Andreas Fault is the best-known example.</p></section>
+
+    <section class="note" aria-label="Field note">
+      <div class="pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+      <div><span class="label">Field note</span><h3>Þingvellir, Iceland</h3><p>In Þingvellir National Park you can walk along a rift valley where the North American and Eurasian plates are pulling apart by about 2 cm a year. In the Silfra fissure, divers swim through clear glacial meltwater in the crack between the two plates.</p></div>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Key terms</h2>
+      <dl class="terms"><div><dt>Plate</dt><dd>A rigid slab of lithosphere that moves as a unit over the asthenosphere.</dd></div><div><dt>Subduction</dt><dd>The sinking of one plate beneath another into the mantle at a convergent boundary.</dd></div><div><dt>Mid-ocean ridge</dt><dd>An undersea mountain chain where plates diverge and new oceanic crust forms.</dd></div><div><dt>Trench</dt><dd>A deep, narrow valley in the ocean floor where a plate is subducting.</dd></div><div><dt>Seafloor spreading</dt><dd>The creation of new oceanic crust at ridges and its movement away from them.</dd></div><div><dt>Paleomagnetism</dt><dd>The record of Earth's past magnetic field preserved in rocks.</dd></div></dl>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Check your understanding</h2>
+      <p style="color:var(--muted)">Try each question before you open the answer. These aren't graded.</p>
+      <div class="checks"><details><summary><span class="q">Q1</span><span>The oldest continental rocks are about 4 billion years old, but the oldest seafloor is only about 200 million years old. Why the difference?</span><span class="reveal"></span></summary><div class="a">Oceanic crust is dense and is recycled into the mantle at subduction zones. Continental crust is too light to sink, so very old pieces of it survive.</div></details><details><summary><span class="q">Q2</span><span>The Andes have many active volcanoes, but the Himalaya have almost none. Why?</span><span class="reveal"></span></summary><div class="a">The Andes sit above an oceanic plate subducting under a continent, which melts mantle rock and feeds volcanoes. The Himalaya formed where two continents collided, and no plate is subducting deep enough to make magma.</div></details><details><summary><span class="q">Q3</span><span>Iceland sits on the Mid-Atlantic Ridge. Is it getting wider or narrower?</span><span class="reveal"></span></summary><div class="a">Wider, by about 2 cm a year, because the plates on either side are moving apart.</div></details></div>
+    </section>
+
+    <section class="task" aria-labelledby="task-h3">
+      <span class="label">This week's activity</span>
+      <h2 id="task-h3">Map activity: Find the boundaries</h2>
+      <ol><li>Open the USGS &quot;This Dynamic Planet&quot; map, or any world map of plate boundaries.</li><li>Find three examples of each boundary type: divergent, convergent and transform.</li><li>For each example, name the feature it has created, such as a ridge, trench, volcanic arc, mountain range or fault.</li></ol>
+      <div class="deliver"><span class="label">To submit</span><b>Submit a labeled screenshot or a list of nine locations.</b></div>
+    </section>
+
+    <div class="next">
+      <div><span class="label">Coming up in Week 4</span><div class="t">Earthquakes &amp; Volcanoes</div></div><span class="chip">Unit 2 · A Restless Planet</span>
+    </div>
+  </main>
+</div></div>
+<div class="wkpage" id="week4">
+<header class="band">
+  <div class="strata lith-u2"></div>
+  <div class="wrap head">
+    <div class="head-text">
+      <div class="crumbs"><span class="chip">GEOL 105</span><span class="chip">Week 4 of 8</span><span class="label">Unit 2 · A Restless Planet</span></div>
+      <h1>Earthquakes &amp; Volcanoes</h1>
+      <p class="lede">Plate boundaries are where Earth releases its energy, sometimes in a matter of seconds. This week: why faults snap, why some volcanoes ooze while others explode, and how scientists measure both.</p>
+      <div class="meta"><span><b>About 3.5 hours</b> this week</span><span><b>3</b> learning objectives</span><span><b>1</b> activity to submit</span></div>
+    </div>
+    <div class="coremini" aria-hidden="true"><div class="cm lith-u1 past" title="Week 1: Welcome to Planet Earth"></div><div class="cm lith-u1 past" title="Week 2: Rocks &amp; the Rock Cycle"></div><div class="cm lith-u2 past" title="Week 3: Plate Tectonics"></div><div class="cm lith-u2 here" title="Week 4: Earthquakes &amp; Volcanoes"></div><div class="cm lith-u3 future" title="Week 5: Reading the Rock Record"></div><div class="cm lith-u3 future" title="Week 6: Fossils &amp; Mass Extinctions"></div><div class="cm lith-u4 future" title="Week 7: Climate Through Time"></div><div class="cm lith-u4 future" title="Week 8: The Anthropocene"></div><span class="label">W04 / 08</span></div>
+  </div>
+</header>
+
+<div class="wrap body">
+  <aside class="aside">
+    <section class="card">
+      <h2>By the end of this week you can</h2>
+      <ul class="obj"><li>Explain how stress builds up and is released along a fault</li><li>Interpret earthquake magnitude on a logarithmic scale</li><li>Relate magma composition to how explosive an eruption will be</li></ul>
+    </section>
+    <section class="card">
+      <h2>Your path this week</h2>
+      <ol class="steps"><li><span><small>Read · 40 min</small>Stored strain, sudden release</span></li><li><span><small>Study · 15 min</small>The magnitude scale</span></li><li><span><small>Check · 15 min</small>Check your understanding</span></li><li><span><small>Lab · 90 min</small>Lab 4: Locate an epicenter</span></li><li><span><small>Reflect · 20 min</small>Field journal, entry 4</span></li></ol>
+    </section>
+  </aside>
+
+  <main class="article">
+    <section class="prose"><h2>Stored strain, sudden release</h2><p>Plates don't glide smoothly. Along a fault, friction locks the rocks together while the plates keep moving, so the rock slowly bends and stores energy. When the stress finally overcomes friction, the fault slips and the rock snaps back. This idea, called <strong>elastic rebound</strong>, came from studying the 1906 San Francisco earthquake.</p><p>The point underground where the slip begins is the <strong>focus</strong>. The point on the surface directly above it is the <strong>epicenter</strong>.</p><p>Scientists measure earthquake size with the moment magnitude scale. It is logarithmic: each step up of one whole number releases about 32 times more energy. A magnitude 7 releases roughly 1,000 times the energy of a magnitude 5.</p></section>
+
+    <figure>
+      <div class="fig-scroll"><svg viewBox="0 0 680 200" role="img" aria-label="Five historic earthquakes placed on the moment magnitude scale from 6 to 10"><line x1="40" y1="113" x2="40" y2="123" class="stroke-muted" stroke-width="1"/><text x="40" y="140" class="tm mono" text-anchor="middle">M6</text><line x1="190" y1="113" x2="190" y2="123" class="stroke-muted" stroke-width="1"/><text x="190" y="140" class="tm mono" text-anchor="middle">M7</text><line x1="340" y1="113" x2="340" y2="123" class="stroke-muted" stroke-width="1"/><text x="340" y="140" class="tm mono" text-anchor="middle">M8</text><line x1="490" y1="113" x2="490" y2="123" class="stroke-muted" stroke-width="1"/><text x="490" y="140" class="tm mono" text-anchor="middle">M9</text><line x1="640" y1="113" x2="640" y2="123" class="stroke-muted" stroke-width="1"/><text x="640" y="140" class="tm mono" text-anchor="middle">M10</text><line x1="40" y1="118" x2="640" y2="118" class="stroke-muted" stroke-width="1"/><line x1="145.00000000000003" y1="84" x2="145.00000000000003" y2="110" class="stroke-line" stroke-width="1"/><text x="150.00000000000003" y="62" class="tb" text-anchor="end">Northridge, USA</text><text x="150.00000000000003" y="77" class="tm mono" text-anchor="end">1994 · M6.7</text><circle cx="145.00000000000003" cy="118" r="7" class="fill-accent stroke-surface" stroke-width="2"><title>Northridge, USA, 1994: magnitude 6.7</title></circle><line x1="190" y1="44" x2="190" y2="110" class="stroke-line" stroke-width="1"/><text x="190" y="22" class="tb" text-anchor="middle">Haiti</text><text x="190" y="37" class="tm mono" text-anchor="middle">2010 · M7.0</text><circle cx="190" cy="118" r="7" class="fill-accent stroke-surface" stroke-width="2"><title>Haiti, 2010: magnitude 7.0</title></circle><line x1="325.00000000000006" y1="84" x2="325.00000000000006" y2="110" class="stroke-line" stroke-width="1"/><text x="325.00000000000006" y="62" class="tb" text-anchor="middle">San Francisco, USA</text><text x="325.00000000000006" y="77" class="tm mono" text-anchor="middle">1906 · M7.9</text><circle cx="325.00000000000006" cy="118" r="7" class="fill-accent stroke-surface" stroke-width="2"><title>San Francisco, USA, 1906: magnitude 7.9</title></circle><line x1="504.99999999999994" y1="84" x2="504.99999999999994" y2="110" class="stroke-line" stroke-width="1"/><text x="509.99999999999994" y="62" class="tb" text-anchor="end">Tōhoku, Japan</text><text x="509.99999999999994" y="77" class="tm mono" text-anchor="end">2011 · M9.1</text><circle cx="504.99999999999994" cy="118" r="7" class="fill-accent stroke-surface" stroke-width="2"><title>Tōhoku, Japan, 2011: magnitude 9.1</title></circle><line x1="565" y1="44" x2="565" y2="110" class="stroke-line" stroke-width="1"/><text x="565" y="22" class="tb" text-anchor="middle">Valdivia, Chile</text><text x="565" y="37" class="tm mono" text-anchor="middle">1960 · M9.5</text><circle cx="565" cy="118" r="7" class="fill-accent stroke-surface" stroke-width="2"><title>Valdivia, Chile, 1960: magnitude 9.5</title></circle><path d="M190 156v6h150v-6" class="stroke-muted" fill="none" stroke-width="1"/><text x="265" y="182" class="tm" text-anchor="middle">One step ≈ 32× more energy</text></svg></div>
+      <figcaption>Five historic earthquakes on the moment magnitude scale. Because the scale is logarithmic, the Valdivia earthquake released about 16,000 times more energy than Northridge.</figcaption>
+      <details class="data"><summary>Show the data as a table</summary><div class="tbl"><table><thead><tr><th>Earthquake</th><th>Year</th><th>Magnitude</th></tr></thead><tbody><tr><td>Northridge, USA</td><td>1994</td><td>6.7</td></tr><tr><td>Haiti</td><td>2010</td><td>7.0</td></tr><tr><td>San Francisco, USA</td><td>1906</td><td>7.9</td></tr><tr><td>Tōhoku, Japan</td><td>2011</td><td>9.1</td></tr><tr><td>Valdivia, Chile</td><td>1960</td><td>9.5</td></tr></tbody></table></div></details>
+    </figure>
+
+    <section class="prose"><h2>Why volcanoes behave differently</h2><p>Whether a volcano erupts gently or violently depends mostly on how thick, or <strong>viscous</strong>, its magma is. Viscosity depends on silica content and dissolved gas.</p><p>Low-silica basalt magma is runny. Gas bubbles escape easily, so the lava pours out in flows and fountains, as at Kīlauea in Hawai‘i.</p><p>High-silica magma is sticky and traps gas. Pressure builds until the magma shatters in an explosion that throws out ash and sends avalanches of hot gas and rock, called pyroclastic flows, racing downhill. Mount St. Helens in 1980 and Mount Pinatubo in 1991 were eruptions of this kind.</p></section>
+
+    <section class="note" aria-label="Field note">
+      <div class="pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+      <div><span class="label">Field note</span><h3>Mount St. Helens, Washington</h3><p>On May 18, 1980, a magnitude 5.1 earthquake shook loose the bulging north face of the volcano, causing the largest landslide in recorded history. With the weight suddenly removed, the gas-rich magma inside blasted sideways and flattened about 600 km² of forest. The mountain lost about 400 meters of height in a single morning.</p></div>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Key terms</h2>
+      <dl class="terms"><div><dt>Fault</dt><dd>A fracture in rock along which the two sides have moved.</dd></div><div><dt>Focus</dt><dd>The point underground where an earthquake rupture begins. Also called the hypocenter.</dd></div><div><dt>Epicenter</dt><dd>The point on Earth's surface directly above the focus.</dd></div><div><dt>Elastic rebound</dt><dd>The sudden snapping back of bent rock when a locked fault slips.</dd></div><div><dt>Viscosity</dt><dd>A fluid's resistance to flow. High-viscosity magma is thick and sticky.</dd></div><div><dt>Pyroclastic flow</dt><dd>A fast-moving avalanche of hot gas, ash and rock from an explosive eruption.</dd></div></dl>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Check your understanding</h2>
+      <p style="color:var(--muted)">Try each question before you open the answer. These aren't graded.</p>
+      <div class="checks"><details><summary><span class="q">Q1</span><span>About how much more energy does a magnitude 8 earthquake release than a magnitude 6?</span><span class="reveal"></span></summary><div class="a">About 1,000 times. Each step is about 32 times more energy, and 32 × 32 ≈ 1,000.</div></details><details><summary><span class="q">Q2</span><span>Why are Hawaiian eruptions usually much less explosive than the 1980 eruption of Mount St. Helens?</span><span class="reveal"></span></summary><div class="a">Hawaiian magma is low-silica basalt. It is runny, so gas escapes easily instead of building up pressure.</div></details><details><summary><span class="q">Q3</span><span>News reports give an earthquake's location as a point on a map. Is that the focus or the epicenter?</span><span class="reveal"></span></summary><div class="a">The epicenter, the point on the surface above where the rupture began. The focus is underground.</div></details></div>
+    </section>
+
+    <section class="task" aria-labelledby="task-h4">
+      <span class="label">This week's activity</span>
+      <h2 id="task-h4">Lab 4: Locate an epicenter</h2>
+      <ol><li>The lab packet lists the gap between P-wave and S-wave arrival times at three seismograph stations.</li><li>Convert each gap into a distance using the travel-time chart. As a rule of thumb, each second of gap is about 8 km.</li><li>On the map, draw a circle around each station with that distance as its radius.</li><li>Mark the epicenter where all three circles meet.</li></ol>
+      <div class="deliver"><span class="label">To submit</span><b>Submit your map with the three circles and the epicenter marked.</b></div>
+    </section>
+
+    <div class="next">
+      <div><span class="label">Coming up in Week 5</span><div class="t">Reading the Rock Record</div></div><span class="chip">Unit 3 · Deep Time</span>
+    </div>
+  </main>
+</div></div>
+<div class="wkpage" id="week5">
+<header class="band">
+  <div class="strata lith-u3"></div>
+  <div class="wrap head">
+    <div class="head-text">
+      <div class="crumbs"><span class="chip">GEOL 105</span><span class="chip">Week 5 of 8</span><span class="label">Unit 3 · Deep Time</span></div>
+      <h1>Reading the Rock Record</h1>
+      <p class="lede">Rock layers are pages in Earth's diary. This week you'll learn to put those pages in order, and then to put real dates on them.</p>
+      <div class="meta"><span><b>About 3.5 hours</b> this week</span><span><b>3</b> learning objectives</span><span><b>1</b> activity to submit</span></div>
+    </div>
+    <div class="coremini" aria-hidden="true"><div class="cm lith-u1 past" title="Week 1: Welcome to Planet Earth"></div><div class="cm lith-u1 past" title="Week 2: Rocks &amp; the Rock Cycle"></div><div class="cm lith-u2 past" title="Week 3: Plate Tectonics"></div><div class="cm lith-u2 past" title="Week 4: Earthquakes &amp; Volcanoes"></div><div class="cm lith-u3 here" title="Week 5: Reading the Rock Record"></div><div class="cm lith-u3 future" title="Week 6: Fossils &amp; Mass Extinctions"></div><div class="cm lith-u4 future" title="Week 7: Climate Through Time"></div><div class="cm lith-u4 future" title="Week 8: The Anthropocene"></div><span class="label">W05 / 08</span></div>
+  </div>
+</header>
+
+<div class="wrap body">
+  <aside class="aside">
+    <section class="card">
+      <h2>By the end of this week you can</h2>
+      <ul class="obj"><li>Apply the principles of relative dating to a sequence of rock layers</li><li>Recognize unconformities and explain what they represent</li><li>Calculate the age of a sample from its half-lives</li></ul>
+    </section>
+    <section class="card">
+      <h2>Your path this week</h2>
+      <ol class="steps"><li><span><small>Read · 50 min</small>Putting events in order</span></li><li><span><small>Study · 15 min</small>The half-life chart</span></li><li><span><small>Check · 15 min</small>Check your understanding</span></li><li><span><small>Lab · 90 min</small>Lab 5: Tell the story of a cliff</span></li><li><span><small>Reflect · 20 min</small>Field journal, entry 5</span></li></ol>
+    </section>
+  </aside>
+
+  <main class="article">
+    <section class="prose"><h2>Putting events in order</h2><p>In 1669 the Danish scientist Nicolas Steno set out simple rules that geologists still use. <strong>Superposition</strong>: in undisturbed layers, the oldest is at the bottom and the youngest at the top. <strong>Original horizontality</strong>: sediment settles in flat layers, so tilted or folded layers were disturbed later.</p><p><strong>Cross-cutting relationships</strong> add another rule: anything that cuts through rock layers, such as a fault or a vein of igneous rock, must be younger than the layers it cuts.</p><p>Sometimes layers are missing. An <strong>unconformity</strong> is a surface where rock was eroded away, or never deposited, before the next layers formed on top. Each one is a gap in the record.</p></section>
+
+    <figure>
+      <div class="fig-scroll"><svg viewBox="0 0 680 290" role="img" aria-label="Bar chart: parent isotope remaining after 0 to 5 half-lives, halving each time"><line x1="64" y1="220" x2="664" y2="220" class="stroke-line" stroke-width="1"/><text x="54" y="224" class="tm mono" text-anchor="end">0%</text><line x1="64" y1="172.5" x2="664" y2="172.5" class="stroke-line" stroke-width="1"/><text x="54" y="176.5" class="tm mono" text-anchor="end">25%</text><line x1="64" y1="125" x2="664" y2="125" class="stroke-line" stroke-width="1"/><text x="54" y="129" class="tm mono" text-anchor="end">50%</text><line x1="64" y1="77.5" x2="664" y2="77.5" class="stroke-line" stroke-width="1"/><text x="54" y="81.5" class="tm mono" text-anchor="end">75%</text><line x1="64" y1="30" x2="664" y2="30" class="stroke-line" stroke-width="1"/><text x="54" y="34" class="tm mono" text-anchor="end">100%</text><path d="M86 220V34Q86 30 90 30H138Q142 30 142 34V220Z" class="fill-accent"><title>0 half-lives (0 years for C-14): 100% remaining</title></path><text x="114" y="22" class="tb mono" text-anchor="middle">100%</text><text x="114" y="240" class="tb mono" text-anchor="middle">0</text><text x="114" y="257" class="tm mono" text-anchor="middle">0</text><path d="M186 220V129Q186 125 190 125H238Q242 125 242 129V220Z" class="fill-accent"><title>1 half-lives (5,730 years for C-14): 50% remaining</title></path><text x="214" y="117" class="tb mono" text-anchor="middle">50%</text><text x="214" y="240" class="tb mono" text-anchor="middle">1</text><text x="214" y="257" class="tm mono" text-anchor="middle">5,730</text><path d="M286 220V176.5Q286 172.5 290 172.5H338Q342 172.5 342 176.5V220Z" class="fill-accent"><title>2 half-lives (11,460 years for C-14): 25% remaining</title></path><text x="314" y="164.5" class="tb mono" text-anchor="middle">25%</text><text x="314" y="240" class="tb mono" text-anchor="middle">2</text><text x="314" y="257" class="tm mono" text-anchor="middle">11,460</text><path d="M386 220V200.25Q386 196.25 390 196.25H438Q442 196.25 442 200.25V220Z" class="fill-accent"><title>3 half-lives (17,190 years for C-14): 12.5% remaining</title></path><text x="414" y="188.25" class="tb mono" text-anchor="middle">12.5%</text><text x="414" y="240" class="tb mono" text-anchor="middle">3</text><text x="414" y="257" class="tm mono" text-anchor="middle">17,190</text><path d="M486 220V212.125Q486 208.125 490 208.125H538Q542 208.125 542 212.125V220Z" class="fill-accent"><title>4 half-lives (22,920 years for C-14): 6.25% remaining</title></path><text x="514" y="200.125" class="tb mono" text-anchor="middle">6.25%</text><text x="514" y="240" class="tb mono" text-anchor="middle">4</text><text x="514" y="257" class="tm mono" text-anchor="middle">22,920</text><path d="M586 220V218.0625Q586 214.0625 590 214.0625H638Q642 214.0625 642 218.0625V220Z" class="fill-accent"><title>5 half-lives (28,650 years for C-14): 3.13% remaining</title></path><text x="614" y="206.0625" class="tb mono" text-anchor="middle">3.13%</text><text x="614" y="240" class="tb mono" text-anchor="middle">5</text><text x="614" y="257" class="tm mono" text-anchor="middle">28,650</text><text x="64" y="282" class="tm" text-anchor="start">Top row: half-lives elapsed.  Bottom row: carbon-14 age in years.</text></svg></div>
+      <figcaption>After each half-life, half of the remaining parent isotope has decayed. For carbon-14, one half-life is 5,730 years.</figcaption>
+      <details class="data"><summary>Show the data as a table</summary><div class="tbl"><table><thead><tr><th>Half-lives elapsed</th><th>Carbon-14 age (years)</th><th>Parent isotope remaining</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>100%</td></tr><tr><td>1</td><td>5,730</td><td>50%</td></tr><tr><td>2</td><td>11,460</td><td>25%</td></tr><tr><td>3</td><td>17,190</td><td>12.5%</td></tr><tr><td>4</td><td>22,920</td><td>6.25%</td></tr><tr><td>5</td><td>28,650</td><td>3.13%</td></tr></tbody></table></div></details>
+    </figure>
+
+    <section class="prose"><h2>Putting numbers on time</h2><p>Relative dating gives order but not ages. Real ages come from radioactive isotopes, which decay into other elements at a steady, known rate. The <strong>half-life</strong> is the time it takes for half of a sample's parent isotope to decay.</p><p>By measuring how much parent isotope remains compared with the daughter product it decays into, scientists can calculate how long the clock has been running.</p><p>Different isotopes suit different jobs. Carbon-14 has a half-life of 5,730 years and dates once-living material up to about 50,000 years old. Uranium-238 has a half-life of 4.5 billion years and is used to date the oldest rocks on Earth, including mineral grains 4.4 billion years old.</p></section>
+
+    <section class="note" aria-label="Field note">
+      <div class="pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+      <div><span class="label">Field note</span><h3>Grand Canyon, Arizona</h3><p>Nearly two billion years of history are exposed in the canyon walls. At the Great Unconformity, flat layers of sandstone around 500 million years old sit directly on top of schist that is about 1.75 billion years old. In places, more than a billion years of rock record is simply gone.</p></div>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Key terms</h2>
+      <dl class="terms"><div><dt>Superposition</dt><dd>In undisturbed layers, older rocks lie below younger rocks.</dd></div><div><dt>Original horizontality</dt><dd>Sediment is deposited in flat layers. Tilted layers were moved after they formed.</dd></div><div><dt>Cross-cutting relationships</dt><dd>A feature that cuts through rock is younger than the rock it cuts.</dd></div><div><dt>Unconformity</dt><dd>A buried surface of erosion or non-deposition: a gap in the rock record.</dd></div><div><dt>Isotope</dt><dd>A form of an element with a particular number of neutrons. Some isotopes are radioactive.</dd></div><div><dt>Half-life</dt><dd>The time for half of a radioactive parent isotope to decay.</dd></div></dl>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Check your understanding</h2>
+      <p style="color:var(--muted)">Try each question before you open the answer. These aren't graded.</p>
+      <div class="checks"><details><summary><span class="q">Q1</span><span>A vertical band of basalt cuts through three sandstone layers. Which is older, the basalt or the sandstone?</span><span class="reveal"></span></summary><div class="a">All three sandstone layers are older. The basalt cut through them, so it must have come later.</div></details><details><summary><span class="q">Q2</span><span>A sample has 25% of its original parent isotope left. How many half-lives have passed?</span><span class="reveal"></span></summary><div class="a">Two. After one half-life 50% remains, and after two, 25%.</div></details><details><summary><span class="q">Q3</span><span>Why can't carbon-14 be used to date a dinosaur bone?</span><span class="reveal"></span></summary><div class="a">Dinosaurs lived more than 66 million years ago. After about 50,000 years too little carbon-14 is left to measure. Geologists instead date volcanic ash layers above and below the fossil using longer-lived isotopes.</div></details></div>
+    </section>
+
+    <section class="task" aria-labelledby="task-h5">
+      <span class="label">This week's activity</span>
+      <h2 id="task-h5">Lab 5: Tell the story of a cliff</h2>
+      <ol><li>Use the cross-section in the lab packet. It shows layers A to F, a fault and an igneous dike.</li><li>List every event from oldest to youngest.</li><li>Beside each event, name the principle that tells you where it belongs in the sequence.</li></ol>
+      <div class="deliver"><span class="label">To submit</span><b>Submit your numbered sequence with justifications.</b></div>
+    </section>
+
+    <div class="next">
+      <div><span class="label">Coming up in Week 6</span><div class="t">Fossils &amp; Mass Extinctions</div></div><span class="chip">Unit 3 · Deep Time</span>
+    </div>
+  </main>
+</div></div>
+<div class="wkpage" id="week6">
+<header class="band">
+  <div class="strata lith-u3"></div>
+  <div class="wrap head">
+    <div class="head-text">
+      <div class="crumbs"><span class="chip">GEOL 105</span><span class="chip">Week 6 of 8</span><span class="label">Unit 3 · Deep Time</span></div>
+      <h1>Fossils &amp; Mass Extinctions</h1>
+      <p class="lede">Fossils tell us who lived when. They also record five moments when most life on Earth disappeared, and what came back afterward.</p>
+      <div class="meta"><span><b>About 3 hours</b> this week</span><span><b>3</b> learning objectives</span><span><b>1</b> activity to submit</span></div>
+    </div>
+    <div class="coremini" aria-hidden="true"><div class="cm lith-u1 past" title="Week 1: Welcome to Planet Earth"></div><div class="cm lith-u1 past" title="Week 2: Rocks &amp; the Rock Cycle"></div><div class="cm lith-u2 past" title="Week 3: Plate Tectonics"></div><div class="cm lith-u2 past" title="Week 4: Earthquakes &amp; Volcanoes"></div><div class="cm lith-u3 past" title="Week 5: Reading the Rock Record"></div><div class="cm lith-u3 here" title="Week 6: Fossils &amp; Mass Extinctions"></div><div class="cm lith-u4 future" title="Week 7: Climate Through Time"></div><div class="cm lith-u4 future" title="Week 8: The Anthropocene"></div><span class="label">W06 / 08</span></div>
+  </div>
+</header>
+
+<div class="wrap body">
+  <aside class="aside">
+    <section class="card">
+      <h2>By the end of this week you can</h2>
+      <ul class="obj"><li>Explain the conditions that allow an organism to become a fossil</li><li>Use index fossils to match rock layers in different places</li><li>Compare the causes of the five largest mass extinctions</li></ul>
+    </section>
+    <section class="card">
+      <h2>Your path this week</h2>
+      <ol class="steps"><li><span><small>Read · 45 min</small>How to become a fossil</span></li><li><span><small>Study · 15 min</small>The Big Five chart</span></li><li><span><small>Check · 15 min</small>Check your understanding</span></li><li><span><small>Write · 60 min</small>Field journal: Adopt an extinct species</span></li><li><span><small>Reflect · 20 min</small>Field journal, entry 6</span></li></ol>
+    </section>
+  </aside>
+
+  <main class="article">
+    <section class="prose"><h2>How to become a fossil</h2><p>Most living things leave no trace. To become a fossil, an organism usually needs hard parts such as shell, bone or wood, and quick burial in sediment that keeps out oxygen and scavengers.</p><p>Fossils come in several kinds. <strong>Body fossils</strong> preserve the organism itself, often with its original material replaced by minerals. <strong>Trace fossils</strong> such as footprints, burrows and bite marks record behavior. Molds and casts preserve an organism's shape after the original has dissolved.</p><p>Some fossils are especially useful for dating. An <strong>index fossil</strong> comes from a species that was widespread and common but lived for only a short time. Finding the same index fossil in two places means the rocks are about the same age. In 1815 William Smith used fossils this way to make the first geologic map of an entire country, England and Wales.</p></section>
+
+    <figure>
+      <div class="fig-scroll"><svg viewBox="0 0 680 300" role="img" aria-label="Bar chart of the Big Five mass extinctions on a timeline from 500 million years ago to today"><line x1="60" y1="207.5" x2="650" y2="207.5" class="stroke-line" stroke-width="1"/><text x="52" y="211.5" class="tm mono" text-anchor="end">25%</text><line x1="60" y1="165" x2="650" y2="165" class="stroke-line" stroke-width="1"/><text x="52" y="169" class="tm mono" text-anchor="end">50%</text><line x1="60" y1="122.5" x2="650" y2="122.5" class="stroke-line" stroke-width="1"/><text x="52" y="126.5" class="tm mono" text-anchor="end">75%</text><line x1="60" y1="80" x2="650" y2="80" class="stroke-line" stroke-width="1"/><text x="52" y="84" class="tm mono" text-anchor="end">100%</text><line x1="60" y1="250" x2="650" y2="250" class="stroke-muted" stroke-width="1"/><text x="60" y="270" class="tm mono" text-anchor="start">500 Ma</text><text x="178" y="270" class="tm mono" text-anchor="middle">400 Ma</text><text x="296" y="270" class="tm mono" text-anchor="middle">300 Ma</text><text x="414" y="270" class="tm mono" text-anchor="middle">200 Ma</text><text x="532" y="270" class="tm mono" text-anchor="middle">100 Ma</text><text x="650" y="270" class="tm mono" text-anchor="end">Today</text><line x1="124.9" y1="38" x2="124.9" y2="101.5" class="stroke-line" stroke-width="1"/><path d="M111.9 250V109.5Q111.9 105.5 115.9 105.5H133.9Q137.9 105.5 137.9 109.5V250Z" class="fill-accent"><title>End-Ordovician, 445 million years ago: about 85% of marine species lost</title></path><text x="124.9" y="18" class="tb" text-anchor="middle">End-Ordovician</text><text x="124.9" y="33" class="tm mono" text-anchor="middle">445 Ma · ≈85%</text><line x1="211.04" y1="72" x2="211.04" y2="118.5" class="stroke-line" stroke-width="1"/><path d="M198.04 250V126.5Q198.04 122.5 202.04 122.5H220.04Q224.04 122.5 224.04 126.5V250Z" class="fill-accent"><title>Late Devonian, 372 million years ago: about 75% of marine species lost</title></path><text x="211.04" y="52" class="tb" text-anchor="middle">Late Devonian</text><text x="211.04" y="67" class="tm mono" text-anchor="middle">372 Ma · ≈75%</text><line x1="352.64" y1="38" x2="352.64" y2="93" class="stroke-line" stroke-width="1"/><path d="M339.64 250V101Q339.64 97 343.64 97H361.64Q365.64 97 365.64 101V250Z" class="fill-accent"><title>End-Permian, 252 million years ago: about 90% of marine species lost</title></path><text x="352.64" y="18" class="tb" text-anchor="middle">End-Permian</text><text x="352.64" y="33" class="tm mono" text-anchor="middle">252 Ma · ≈90%</text><line x1="412.82" y1="72" x2="412.82" y2="110" class="stroke-line" stroke-width="1"/><path d="M399.82 250V118Q399.82 114 403.82 114H421.82Q425.82 114 425.82 118V250Z" class="fill-accent"><title>End-Triassic, 201 million years ago: about 80% of marine species lost</title></path><text x="412.82" y="52" class="tb" text-anchor="middle">End-Triassic</text><text x="412.82" y="67" class="tm mono" text-anchor="middle">201 Ma · ≈80%</text><line x1="572.12" y1="38" x2="572.12" y2="116.80000000000001" class="stroke-line" stroke-width="1"/><path d="M559.12 250V124.80000000000001Q559.12 120.80000000000001 563.12 120.80000000000001H581.12Q585.12 120.80000000000001 585.12 124.80000000000001V250Z" class="fill-accent"><title>End-Cretaceous, 66 million years ago: about 76% of marine species lost</title></path><text x="572.12" y="18" class="tb" text-anchor="middle">End-Cretaceous</text><text x="572.12" y="33" class="tm mono" text-anchor="middle">66 Ma · ≈76%</text></svg></div>
+      <figcaption>The Big Five mass extinctions. Bar heights show the estimated share of marine species lost. Estimates vary between studies.</figcaption>
+      <details class="data"><summary>Show the data as a table</summary><div class="tbl"><table><thead><tr><th>Extinction</th><th>Million years ago</th><th>Marine species lost (approx.)</th></tr></thead><tbody><tr><td>End-Ordovician</td><td>445</td><td>85%</td></tr><tr><td>Late Devonian</td><td>372</td><td>75%</td></tr><tr><td>End-Permian</td><td>252</td><td>90%</td></tr><tr><td>End-Triassic</td><td>201</td><td>80%</td></tr><tr><td>End-Cretaceous</td><td>66</td><td>76%</td></tr></tbody></table></div></details>
+    </figure>
+
+    <section class="prose"><h2>Five times the world nearly ended</h2><p>Species go extinct all the time. A <strong>mass extinction</strong> is different: a large share of all species disappearing in a geologically short time. The rock record shows five of them, known as the Big Five.</p><p>The largest was the end-Permian extinction 252 million years ago, sometimes called the Great Dying. Massive volcanic eruptions in Siberia released enormous amounts of carbon dioxide, warming and acidifying the oceans. Roughly nine in ten marine species vanished.</p><p>The most famous is the end-Cretaceous extinction 66 million years ago, when an asteroid about 10 km across struck what is now Mexico and ended the age of non-bird dinosaurs. After each extinction, survivors spread into the empty niches. Mammals, small and few before, diversified rapidly after the dinosaurs were gone.</p></section>
+
+    <section class="note" aria-label="Field note">
+      <div class="pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+      <div><span class="label">Field note</span><h3>Gubbio, Italy</h3><p>In the 1970s geologist Walter Alvarez studied a thin layer of clay in the limestone near Gubbio that marks the end of the Cretaceous. With his father Luis, a physicist, he found that it held far more iridium than normal. Iridium is rare in Earth's crust but common in asteroids. Their 1980 paper proposed an impact, and in 1991 the crater was identified: Chicxulub, buried beneath Mexico's Yucatán Peninsula.</p></div>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Key terms</h2>
+      <dl class="terms"><div><dt>Body fossil</dt><dd>The preserved remains of an organism, such as a shell, bone or leaf.</dd></div><div><dt>Trace fossil</dt><dd>Evidence of an organism's activity, such as footprints, burrows or droppings.</dd></div><div><dt>Index fossil</dt><dd>A fossil of a widespread, short-lived species, used to match rock layers by age.</dd></div><div><dt>Mass extinction</dt><dd>The loss of a large share of Earth's species in a geologically short time.</dd></div><div><dt>Adaptive radiation</dt><dd>The rapid diversification of a group into many new species, often after an extinction.</dd></div><div><dt>K–Pg boundary</dt><dd>The rock layer marking the end of the Cretaceous Period, 66 million years ago.</dd></div></dl>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Check your understanding</h2>
+      <p style="color:var(--muted)">Try each question before you open the answer. These aren't graded.</p>
+      <div class="checks"><details><summary><span class="q">Q1</span><span>Which makes a better index fossil: a species that lived for 50 million years in a single lake, or one that lived for 1 million years in oceans worldwide?</span><span class="reveal"></span></summary><div class="a">The ocean species. It was widespread, so it can match rocks across continents, and short-lived, so it pins down a narrow window of time.</div></details><details><summary><span class="q">Q2</span><span>Why are soft-bodied animals like jellyfish so rare in the fossil record?</span><span class="reveal"></span></summary><div class="a">With no hard parts, they usually decay or are eaten before they can be buried and preserved.</div></details><details><summary><span class="q">Q3</span><span>What evidence pointed to an asteroid impact at the end of the Cretaceous?</span><span class="reveal"></span></summary><div class="a">A worldwide clay layer enriched in iridium, shocked quartz grains and glassy spherules in that layer, and the Chicxulub crater, which is dated to about 66 million years ago.</div></details></div>
+    </section>
+
+    <section class="task" aria-labelledby="task-h6">
+      <span class="label">This week's activity</span>
+      <h2 id="task-h6">Field journal: Adopt an extinct species</h2>
+      <ol><li>Choose one species that disappeared in one of the Big Five extinctions.</li><li>Describe when and where it lived and what its environment was like.</li><li>Explain how we know about it: what kind of fossil, and where it was found.</li><li>Describe what happened to its world during the extinction.</li></ol>
+      <div class="deliver"><span class="label">To submit</span><b>Submit a 300-word entry with one image of your species.</b></div>
+    </section>
+
+    <div class="next">
+      <div><span class="label">Coming up in Week 7</span><div class="t">Climate Through Time</div></div><span class="chip">Unit 4 · Earth Now</span>
+    </div>
+  </main>
+</div></div>
+<div class="wkpage" id="week7">
+<header class="band">
+  <div class="strata lith-u4"></div>
+  <div class="wrap head">
+    <div class="head-text">
+      <div class="crumbs"><span class="chip">GEOL 105</span><span class="chip">Week 7 of 8</span><span class="label">Unit 4 · Earth Now</span></div>
+      <h1>Climate Through Time</h1>
+      <p class="lede">Earth's climate has swung from ice-covered to ice-free and back many times. Rocks, ice and fossils record those swings, and they give context to the change happening now.</p>
+      <div class="meta"><span><b>About 3 hours</b> this week</span><span><b>3</b> learning objectives</span><span><b>1</b> activity to submit</span></div>
+    </div>
+    <div class="coremini" aria-hidden="true"><div class="cm lith-u1 past" title="Week 1: Welcome to Planet Earth"></div><div class="cm lith-u1 past" title="Week 2: Rocks &amp; the Rock Cycle"></div><div class="cm lith-u2 past" title="Week 3: Plate Tectonics"></div><div class="cm lith-u2 past" title="Week 4: Earthquakes &amp; Volcanoes"></div><div class="cm lith-u3 past" title="Week 5: Reading the Rock Record"></div><div class="cm lith-u3 past" title="Week 6: Fossils &amp; Mass Extinctions"></div><div class="cm lith-u4 here" title="Week 7: Climate Through Time"></div><div class="cm lith-u4 future" title="Week 8: The Anthropocene"></div><span class="label">W07 / 08</span></div>
+  </div>
+</header>
+
+<div class="wrap body">
+  <aside class="aside">
+    <section class="card">
+      <h2>By the end of this week you can</h2>
+      <ul class="obj"><li>Describe how proxies such as ice cores record past climate</li><li>Explain natural drivers of climate change over different timescales</li><li>Compare today's carbon dioxide levels with the ice-core record</li></ul>
+    </section>
+    <section class="card">
+      <h2>Your path this week</h2>
+      <ol class="steps"><li><span><small>Read · 45 min</small>Reading old climates</span></li><li><span><small>Study · 15 min</small>The carbon dioxide chart</span></li><li><span><small>Check · 15 min</small>Check your understanding</span></li><li><span><small>Lab · 60 min</small>Data lab: Read the Keeling Curve</span></li><li><span><small>Reflect · 20 min</small>Field journal, entry 7</span></li></ol>
+    </section>
+  </aside>
+
+  <main class="article">
+    <section class="prose"><h2>Reading old climates</h2><p>Thermometers only go back a few centuries, so scientists use <strong>proxies</strong>: natural records that respond to climate. Tree rings, pollen in lake mud, the chemistry of seashells and the shapes of glacial deposits all preserve clues about past temperatures and rainfall.</p><p>Ice cores are especially powerful. As snow piles up on ice sheets and compresses into ice, it traps tiny bubbles of air. Each bubble is a sample of the atmosphere from the time it was sealed. The chemistry of the ice itself also records the temperature when the snow fell.</p></section>
+
+    <figure>
+      <div class="fig-scroll"><svg viewBox="0 0 680 290" role="img" aria-label="Line chart of atmospheric CO2 at Mauna Loa rising from 317 ppm in 1960 to 421 ppm in 2023"><line x1="64" y1="219.86666666666667" x2="600" y2="219.86666666666667" class="stroke-line" stroke-width="1" stroke-dasharray="5 4"/><text x="56" y="223.86666666666667" class="tm mono" text-anchor="end">300</text><line x1="64" y1="144.53333333333333" x2="600" y2="144.53333333333333" class="stroke-line" stroke-width="1"/><text x="56" y="148.53333333333333" class="tm mono" text-anchor="end">350</text><line x1="64" y1="69.19999999999999" x2="600" y2="69.19999999999999" class="stroke-line" stroke-width="1"/><text x="56" y="73.19999999999999" class="tm mono" text-anchor="end">400</text><text x="56" y="26" class="tm mono" text-anchor="end">ppm</text><line x1="64" y1="250" x2="600" y2="250" class="stroke-muted" stroke-width="1"/><text x="64" y="270" class="tm mono" text-anchor="middle">1960</text><text x="234.15873015873015" y="270" class="tm mono" text-anchor="middle">1980</text><text x="404.3174603174603" y="270" class="tm mono" text-anchor="middle">2000</text><text x="574.4761904761904" y="270" class="tm mono" text-anchor="middle">2020</text><line x1="64" y1="219.86666666666667" x2="600" y2="219.86666666666667" class="stroke-now" stroke-width="2" stroke-dasharray="6 5"/><text x="72" y="237.86666666666667" class="tb-now" text-anchor="start">≈300 ppm: ice-core maximum, 800,000 years</text><path d="M64.0,194.4L149.1,181.1L234.2,161.4L319.2,137.8L404.3,114.9L489.4,84.4L574.5,47.8L600.0,37.4L600.0,250L64,250Z" class="fill-accent-tint"/><polyline points="64.0,194.4 149.1,181.1 234.2,161.4 319.2,137.8 404.3,114.9 489.4,84.4 574.5,47.8 600.0,37.4" class="stroke-accent" fill="none" stroke-width="2.5" stroke-linejoin="round"/><circle cx="64.0" cy="194.4" r="10" fill="transparent"><title>1960: 316.9 ppm</title></circle><circle cx="149.1" cy="181.1" r="10" fill="transparent"><title>1970: 325.7 ppm</title></circle><circle cx="234.2" cy="161.4" r="10" fill="transparent"><title>1980: 338.8 ppm</title></circle><circle cx="319.2" cy="137.8" r="10" fill="transparent"><title>1990: 354.5 ppm</title></circle><circle cx="404.3" cy="114.9" r="10" fill="transparent"><title>2000: 369.7 ppm</title></circle><circle cx="489.4" cy="84.4" r="10" fill="transparent"><title>2010: 389.9 ppm</title></circle><circle cx="574.5" cy="47.8" r="10" fill="transparent"><title>2020: 414.2 ppm</title></circle><circle cx="600.0" cy="37.4" r="10" fill="transparent"><title>2023: 421.1 ppm</title></circle><circle cx="600.0" cy="37.4" r="5" class="fill-accent stroke-surface" stroke-width="2"/><text x="610" y="41.40933333333328" class="tb mono" text-anchor="start">421 ppm</text><text x="610" y="56.40933333333328" class="tm mono" text-anchor="start">2023</text></svg></div>
+      <figcaption>Atmospheric carbon dioxide measured at Mauna Loa Observatory, Hawai‘i (NOAA annual means). The dashed line marks about 300 ppm, the highest level in 800,000 years of ice-core records before the industrial era. The vertical axis starts at 280 ppm.</figcaption>
+      <details class="data"><summary>Show the data as a table</summary><div class="tbl"><table><thead><tr><th>Year</th><th>CO₂ (ppm)</th></tr></thead><tbody><tr><td>1960</td><td>316.9</td></tr><tr><td>1970</td><td>325.7</td></tr><tr><td>1980</td><td>338.8</td></tr><tr><td>1990</td><td>354.5</td></tr><tr><td>2000</td><td>369.7</td></tr><tr><td>2010</td><td>389.9</td></tr><tr><td>2020</td><td>414.2</td></tr><tr><td>2023</td><td>421.1</td></tr></tbody></table></div></details>
+    </figure>
+
+    <section class="prose"><h2>What changes the climate</h2><p>Over tens of thousands of years, small, regular changes in Earth's orbit and tilt, called <strong>Milankovitch cycles</strong>, change how sunlight is spread across the planet. They repeat roughly every 100,000, 41,000 and 23,000 years, and they set the rhythm of the ice ages.</p><p>Greenhouse gases amplify those changes. When the orbit warms the planet slightly, the oceans release carbon dioxide, which traps more heat. Over millions of years, moving continents and volcanic activity matter too. Around 700 million years ago, Earth may have frozen over almost entirely, an episode called Snowball Earth.</p><p>Today, carbon dioxide is above 420 parts per million. That is higher than at any point in the 800,000-year ice-core record, and it is rising much faster than the natural changes recorded there.</p></section>
+
+    <section class="note" aria-label="Field note">
+      <div class="pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+      <div><span class="label">Field note</span><h3>Dome C, Antarctica</h3><p>Scientists from the European EPICA project drilled 3,270 meters down into the ice at Dome C. The deepest ice fell as snow about 800,000 years ago. Air bubbles from the core record eight ice-age cycles, with carbon dioxide rising and falling between roughly 180 and 300 ppm.</p></div>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Key terms</h2>
+      <dl class="terms"><div><dt>Proxy</dt><dd>A natural record, such as tree rings or ice, used to estimate past climate.</dd></div><div><dt>Ice core</dt><dd>A long cylinder of ice drilled from a glacier or ice sheet, layered by year.</dd></div><div><dt>Milankovitch cycles</dt><dd>Regular changes in Earth's orbit and tilt that pace the ice ages.</dd></div><div><dt>Greenhouse effect</dt><dd>The warming of Earth's surface by gases that trap outgoing heat.</dd></div><div><dt>Interglacial</dt><dd>A warmer period between ice ages. We are living in one now.</dd></div><div><dt>Snowball Earth</dt><dd>Episodes about 700 million years ago when ice may have covered nearly the whole planet.</dd></div></dl>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Check your understanding</h2>
+      <p style="color:var(--muted)">Try each question before you open the answer. These aren't graded.</p>
+      <div class="checks"><details><summary><span class="q">Q1</span><span>How can a bubble in ancient ice tell us about the past atmosphere?</span><span class="reveal"></span></summary><div class="a">When snow compresses into ice, it seals small pockets of air. Measuring the gases in those bubbles gives a direct sample of the atmosphere from that time.</div></details><details><summary><span class="q">Q2</span><span>Name the three Milankovitch cycles' approximate lengths.</span><span class="reveal"></span></summary><div class="a">About 100,000 years, 41,000 years and 23,000 years.</div></details><details><summary><span class="q">Q3</span><span>How does today's carbon dioxide level compare with the 800,000-year ice-core record?</span><span class="reveal"></span></summary><div class="a">It is above 420 ppm. Before the industrial era, the ice-core record never went higher than about 300 ppm.</div></details></div>
+    </section>
+
+    <section class="task" aria-labelledby="task-h7">
+      <span class="label">This week's activity</span>
+      <h2 id="task-h7">Data lab: Read the Keeling Curve</h2>
+      <ol><li>Use the chart and its data table on this page.</li><li>Calculate the increase in CO₂ from 1960 to 1970, and from 2010 to 2020.</li><li>Compare the two rates. Has the rise sped up, slowed down or stayed the same?</li><li>In a short paragraph, connect your answer to what you learned about natural climate change.</li></ol>
+      <div class="deliver"><span class="label">To submit</span><b>Submit your two calculations and your paragraph.</b></div>
+    </section>
+
+    <div class="next">
+      <div><span class="label">Coming up in Week 8</span><div class="t">The Anthropocene</div></div><span class="chip">Unit 4 · Earth Now</span>
+    </div>
+  </main>
+</div></div>
+<div class="wkpage" id="week8">
+<header class="band">
+  <div class="strata lith-u4"></div>
+  <div class="wrap head">
+    <div class="head-text">
+      <div class="crumbs"><span class="chip">GEOL 105</span><span class="chip">Week 8 of 8</span><span class="label">Unit 4 · Earth Now</span></div>
+      <h1>The Anthropocene</h1>
+      <p class="lede">Humans now move more sediment each year than all the world's rivers combined. Will our time leave a layer that future geologists can find? This week we ask that question, and then look back over the whole course.</p>
+      <div class="meta"><span><b>About 4 hours</b> this week</span><span><b>3</b> learning objectives</span><span><b>1</b> activity to submit</span></div>
+    </div>
+    <div class="coremini" aria-hidden="true"><div class="cm lith-u1 past" title="Week 1: Welcome to Planet Earth"></div><div class="cm lith-u1 past" title="Week 2: Rocks &amp; the Rock Cycle"></div><div class="cm lith-u2 past" title="Week 3: Plate Tectonics"></div><div class="cm lith-u2 past" title="Week 4: Earthquakes &amp; Volcanoes"></div><div class="cm lith-u3 past" title="Week 5: Reading the Rock Record"></div><div class="cm lith-u3 past" title="Week 6: Fossils &amp; Mass Extinctions"></div><div class="cm lith-u4 past" title="Week 7: Climate Through Time"></div><div class="cm lith-u4 here" title="Week 8: The Anthropocene"></div><span class="label">W08 / 08</span></div>
+  </div>
+</header>
+
+<div class="wrap body">
+  <aside class="aside">
+    <section class="card">
+      <h2>By the end of this week you can</h2>
+      <ul class="obj"><li>Evaluate evidence for a human-made signal in the rock record</li><li>Explain how geologists define the boundaries of geologic time units</li><li>Place human history on the full scale of Earth's history</li></ul>
+    </section>
+    <section class="card">
+      <h2>Your path this week</h2>
+      <ol class="steps"><li><span><small>Read · 40 min</small>A human layer</span></li><li><span><small>Study · 15 min</small>Earth's history as one year</span></li><li><span><small>Check · 15 min</small>Check your understanding</span></li><li><span><small>Project · 2 hr</small>Final project: A layer from your town</span></li><li><span><small>Reflect · 20 min</small>Field journal, final entry</span></li></ol>
+    </section>
+  </aside>
+
+  <main class="article">
+    <section class="prose"><h2>A human layer</h2><p>Geologists divide Earth's history into eons, eras, periods and epochs, each defined by changes in the rock record. We officially live in the <strong>Holocene</strong> epoch, which began about 11,700 years ago at the end of the last ice age.</p><p>Many scientists argue that human activity has changed the planet enough to define a new unit, the <strong>Anthropocene</strong>. Future geologists would find plenty of evidence: plutonium from nuclear weapons tests in the 1950s, particles of plastic and concrete, ash from burning coal, and the jump in carbon dioxide trapped in ice.</p><p>To define a new unit, geologists choose a single reference point in the rock called a <strong>golden spike</strong>. In 2024 the committee responsible voted against making the Anthropocene an official epoch, partly because human effects began at different times in different places. The term is still widely used, and the debate continues.</p></section>
+
+    <figure>
+      <div class="fig-scroll"><svg viewBox="0 0 680 270" role="img" aria-label="Earth's history compressed into one calendar year, with a zoomed view of December"><rect x="21.0" y="62" width="52.4" height="22" rx="3" class="fill-sunken"/><text x="47.2" y="77" class="tm mono" text-anchor="middle">J</text><rect x="75.4" y="62" width="47.1" height="22" rx="3" class="fill-sunken"/><text x="98.9" y="77" class="tm mono" text-anchor="middle">F</text><rect x="124.5" y="62" width="52.4" height="22" rx="3" class="fill-sunken"/><text x="150.6" y="77" class="tm mono" text-anchor="middle">M</text><rect x="178.8" y="62" width="50.6" height="22" rx="3" class="fill-sunken"/><text x="204.1" y="77" class="tm mono" text-anchor="middle">A</text><rect x="231.4" y="62" width="52.4" height="22" rx="3" class="fill-sunken"/><text x="257.6" y="77" class="tm mono" text-anchor="middle">M</text><rect x="285.8" y="62" width="50.6" height="22" rx="3" class="fill-sunken"/><text x="311.1" y="77" class="tm mono" text-anchor="middle">J</text><rect x="338.4" y="62" width="52.4" height="22" rx="3" class="fill-sunken"/><text x="364.5" y="77" class="tm mono" text-anchor="middle">J</text><rect x="392.7" y="62" width="52.4" height="22" rx="3" class="fill-sunken"/><text x="418.9" y="77" class="tm mono" text-anchor="middle">A</text><rect x="447.1" y="62" width="50.6" height="22" rx="3" class="fill-sunken"/><text x="472.4" y="77" class="tm mono" text-anchor="middle">S</text><rect x="499.7" y="62" width="52.4" height="22" rx="3" class="fill-sunken"/><text x="525.9" y="77" class="tm mono" text-anchor="middle">O</text><rect x="554.0" y="62" width="50.6" height="22" rx="3" class="fill-sunken"/><text x="579.3" y="77" class="tm mono" text-anchor="middle">N</text><rect x="606.6" y="62" width="52.4" height="22" rx="3" class="fill-now"/><text x="632.8" y="77" class="tb-dark mono" text-anchor="middle">D</text><line x1="20.0" y1="44" x2="20.0" y2="88" class="stroke-ink" stroke-width="1.5"/><text x="20.0" y="18" class="tb" text-anchor="start">Earth forms</text><text x="20.0" y="34" class="tm mono" text-anchor="start">Jan 1</text><line x1="138.4" y1="44" x2="138.4" y2="88" class="stroke-ink" stroke-width="1.5"/><text x="138.4" y="18" class="tb" text-anchor="middle">First life</text><text x="138.4" y="34" class="tm mono" text-anchor="middle">Mar 9</text><line x1="321.7" y1="44" x2="321.7" y2="88" class="stroke-ink" stroke-width="1.5"/><text x="321.7" y="18" class="tb" text-anchor="middle">Oxygen fills the air</text><text x="321.7" y="34" class="tm mono" text-anchor="middle">Jun 22</text><line x1="584.0" y1="44" x2="584.0" y2="88" class="stroke-ink" stroke-width="1.5"/><text x="584.0" y="18" class="tb" text-anchor="middle">Cambrian explosion</text><text x="584.0" y="34" class="tm mono" text-anchor="middle">Nov 18</text><path d="M605.6 86L20 150M660 86L660 150" class="stroke-line" stroke-width="1" fill="none"/><rect x="20.5" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="41.1" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="61.8" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="82.4" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="103.1" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="123.7" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="144.4" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="165.0" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="185.7" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="206.3" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="227.0" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="247.6" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="268.2" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="288.9" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="309.5" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="330.2" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="350.8" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="371.5" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="392.1" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="412.8" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="433.4" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="454.0" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="474.7" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="495.3" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="516.0" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="536.6" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="557.3" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="577.9" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="598.6" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="619.2" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="639.9" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><text x="30.3" y="188" class="tm mono" text-anchor="middle">Dec 1</text><text x="174.8" y="188" class="tm mono" text-anchor="middle">Dec 8</text><text x="319.4" y="188" class="tm mono" text-anchor="middle">Dec 15</text><text x="463.9" y="188" class="tm mono" text-anchor="middle">Dec 22</text><text x="649.7" y="188" class="tm mono" text-anchor="middle">Dec 31</text><line x1="241.7" y1="146" x2="241.7" y2="214" class="stroke-ink" stroke-width="1.5"/><text x="241.7" y="232" class="tb" text-anchor="middle">The Great Dying</text><text x="241.7" y="248" class="tm mono" text-anchor="middle">Dec 11</text><line x1="550.5" y1="146" x2="550.5" y2="214" class="stroke-ink" stroke-width="1.5"/><text x="550.5" y="232" class="tb" text-anchor="middle">Dinosaurs disappear</text><text x="550.5" y="248" class="tm mono" text-anchor="middle">Dec 26</text><line x1="659.5" y1="132" x2="659.5" y2="176" class="stroke-ink" stroke-width="1.5"/><text x="651.5" y="116" class="tb" text-anchor="end">Homo sapiens</text><text x="651.5" y="132" class="tm mono" text-anchor="end">Dec 31, 11:25 pm</text></svg></div>
+      <figcaption>Earth's history as one calendar year. Each day stands for about 12.4 million years. The lower bar zooms in on December.</figcaption>
+      <details class="data"><summary>Show the data as a table</summary><div class="tbl"><table><thead><tr><th>Event</th><th>Million years ago</th><th>Calendar date</th></tr></thead><tbody><tr><td>Earth forms</td><td>4,540</td><td>Jan 1</td></tr><tr><td>First life</td><td>3,700</td><td>Mar 9</td></tr><tr><td>Oxygen fills the air</td><td>2,400</td><td>Jun 22</td></tr><tr><td>Cambrian explosion</td><td>539</td><td>Nov 18</td></tr><tr><td>The Great Dying</td><td>252</td><td>Dec 11</td></tr><tr><td>Dinosaurs disappear</td><td>66</td><td>Dec 26</td></tr><tr><td>Homo sapiens</td><td>0.3</td><td>Dec 31, 11:25 pm</td></tr></tbody></table></div></details>
+    </figure>
+
+    <section class="prose"><h2>All of time on one calendar</h2><p>Earth's 4.54-billion-year history is hard to picture. One way is to squeeze it into a single calendar year, starting with Earth's formation at midnight on January 1. Each day then stands for about 12.4 million years.</p><p>On that calendar, life appears in early March, but complex animals don't show up until mid-November. Dinosaurs disappear the day after Christmas. Our species arrives late on the evening of December 31, and all of recorded history fits into the last minute.</p></section>
+
+    <section class="note" aria-label="Field note">
+      <div class="pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+      <div><span class="label">Field note</span><h3>Crawford Lake, Ontario</h3><p>This small, deep lake has bottom water that almost never mixes, so each year's sediment settles in its own thin layer, like tree rings. Cores from the lake show plutonium appearing sharply in the early 1950s. In 2023 scientists proposed the lake as the golden spike for the Anthropocene. The proposal was voted down in 2024, but the lake's layers remain one of the clearest records of human impact anywhere.</p></div>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Key terms</h2>
+      <dl class="terms"><div><dt>Anthropocene</dt><dd>A proposed name for the current interval of time, defined by human impact on Earth.</dd></div><div><dt>Holocene</dt><dd>The current official epoch, which began about 11,700 years ago.</dd></div><div><dt>Golden spike</dt><dd>The single reference point in rock that marks the start of a geologic time unit. Officially a GSSP.</dd></div><div><dt>Epoch</dt><dd>A subdivision of a geologic period, such as the Holocene or the Pleistocene.</dd></div><div><dt>Technofossil</dt><dd>A human-made object likely to be preserved in the rock record, such as plastic or concrete.</dd></div><div><dt>Stratigraphic marker</dt><dd>A distinctive signal in rock layers that can be traced across the globe.</dd></div></dl>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Check your understanding</h2>
+      <p style="color:var(--muted)">Try each question before you open the answer. These aren't graded.</p>
+      <div class="checks"><details><summary><span class="q">Q1</span><span>Why is plutonium from 1950s weapons tests such a useful marker?</span><span class="reveal"></span></summary><div class="a">It spread around the whole globe, it appears suddenly in a known year, and almost none existed naturally before then.</div></details><details><summary><span class="q">Q2</span><span>If human impact is so clear, why wasn't the Anthropocene made an official epoch?</span><span class="reveal"></span></summary><div class="a">The committee had concerns about defining it by a single date in the 1950s, when human effects on Earth built up gradually over thousands of years and began at different times in different places.</div></details><details><summary><span class="q">Q3</span><span>On the one-year calendar, what date do the non-bird dinosaurs disappear?</span><span class="reveal"></span></summary><div class="a">December 26, about 66 million years ago.</div></details></div>
+    </section>
+
+    <section class="task" aria-labelledby="task-h8">
+      <span class="label">This week's activity</span>
+      <h2 id="task-h8">Final project: A layer from your town</h2>
+      <ol><li>Choose a place near you where you can see layers: a road cut, riverbank, construction site or beach.</li><li>Photograph it and describe the layers using what you learned in Units 1 and 3.</li><li>Imagine a geologist studying this spot 100,000 years from now. What will today's layer contain?</li><li>Present your findings as a poster or a short slide deck.</li></ol>
+      <div class="deliver"><span class="label">To submit</span><b>Submit your poster or slides. Projects will be shared in the course showcase.</b></div>
+    </section>
+
+    <div class="next">
+      <div><span class="label">End of the core</span><div class="t">That's all eight layers. Thanks for digging in.</div></div>
+    </div>
+  </main>
+</div></div>

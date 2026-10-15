@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 5: Reading the Rock Record</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #ECEEEA;
+  --surface: #FFFFFF;
+  --sunken: #E2E5DF;
+  --ink: #1C2220;
+  --muted: #58625D;
+  --line: #D3D8D1;
+  --accent: #1E5C78;      /* slate blue: links, buttons, chart marks */
+  --accent-ink: #FFFFFF;
+  --accent-tint: #E3EEF2;
+  --now: #C98A1A;          /* ochre: highlights */
+  --now-tint: #F6ECD8;
+  --core-in: #F2C76B;
+  --u1: #CDAA72;           /* sandstone */
+  --u2: #A0604A;           /* red beds */
+  --u3: #7E8D6E;           /* shale */
+  --u4: #8FA2B5;           /* limestone */
+  --pattern: rgba(28,34,32,.22);
+  --shadow: 0 1px 2px rgba(28,34,32,.06), 0 8px 24px rgba(28,34,32,.06);
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --r: 18px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #131816; --surface: #1C2320; --sunken: #171D1A; --ink: #E5E9E3; --muted: #9AA59E; --line: #2C3531;
+    --accent: #84BCD4; --accent-ink: #0F1A1F; --accent-tint: #1A2A31; --now: #E5AA45; --now-tint: #2D261A; --core-in: #F2C76B;
+    --u1: #B8975F; --u2: #93584A; --u3: #6F7E61; --u4: #7A8DA0; --pattern: rgba(0,0,0,.32);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #131816; --surface: #1C2320; --sunken: #171D1A; --ink: #E5E9E3; --muted: #9AA59E; --line: #2C3531;
+    --accent: #84BCD4; --accent-ink: #0F1A1F; --accent-tint: #1A2A31; --now: #E5AA45; --now-tint: #2D261A; --core-in: #F2C76B;
+    --u1: #B8975F; --u2: #93584A; --u3: #6F7E61; --u4: #7A8DA0; --pattern: rgba(0,0,0,.32);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+.label { font: 500 11px/1 var(--mono); text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+.chip { font: 500 12px/1 var(--mono); letter-spacing: .04em; padding: 6px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.lith-u1 { background: radial-gradient(circle at 30% 40%, var(--pattern) 1.1px, transparent 1.6px) 0 0 / 7px 7px, radial-gradient(circle at 70% 80%, var(--pattern) .9px, transparent 1.4px) 0 0 / 9px 9px, var(--u1); }
+.lith-u2 { background: repeating-linear-gradient(0deg, transparent 0 7px, var(--pattern) 7px 8px), radial-gradient(circle, var(--pattern) .8px, transparent 1.2px) 0 0 / 6px 8px, var(--u2); }
+.lith-u3 { background: repeating-linear-gradient(0deg, transparent 0 4px, var(--pattern) 4px 5px), repeating-linear-gradient(90deg, transparent 0 9px, var(--u3) 9px 13px), var(--u3); }
+.lith-u4 { background: repeating-linear-gradient(0deg, transparent 0 10px, var(--pattern) 10px 11px), repeating-linear-gradient(90deg, transparent 0 17px, var(--pattern) 17px 18px), var(--u4); }
+
+@keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.band { background: var(--surface); border-bottom: 1px solid var(--line); }
+.strata { height: 12px; }
+.head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: end; padding-block: 36px 40px; animation: rise .5s cubic-bezier(.2,.7,.2,1) both; }
+.head-text { display: grid; gap: 16px; min-width: 0; }
+.crumbs { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.head h1 { font-size: clamp(2.4rem, 5.6vw, 4.2rem); font-weight: 800; line-height: .98; letter-spacing: -0.03em; }
+.head .lede { font-size: 18px; line-height: 1.55; color: var(--muted); margin: 0; max-width: 60ch; }
+.meta { display: flex; gap: 8px 22px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+.meta b { color: var(--ink); font-weight: 600; }
+.coremini { display: grid; gap: 3px; justify-items: center; }
+.coremini .cm { width: 34px; height: 15px; border-left: 1px solid var(--pattern); border-right: 1px solid var(--pattern); position: relative; }
+.coremini .cm.past, .coremini .cm.future { opacity: .45; }
+.coremini .cm.here { box-shadow: 0 0 0 3px var(--now); opacity: 1; }
+.coremini .cm.here::after { content: ""; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); border: 6px solid transparent; border-right-color: var(--now); }
+.coremini .label { margin-top: 8px; }
+
+.body { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; padding-block: 40px 64px; align-items: start; }
+.aside { position: sticky; top: 20px; display: grid; gap: 16px; order: 2; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; display: grid; gap: 12px; }
+.card h2 { font-size: 1.05rem; font-weight: 700; }
+.obj { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 14.5px; line-height: 1.45; }
+.obj li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; }
+.obj li::before { content: ""; width: 8px; height: 8px; margin-top: 7px; border-radius: 2px; background: var(--now); }
+.steps { margin: 0; padding: 0; list-style: none; display: grid; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.35; }
+.steps li:first-child { border-top: 0; padding-top: 0; }
+.steps li::before { content: counter(s); width: 24px; height: 24px; border-radius: 50%; background: var(--sunken); display: grid; place-items: center; font: 600 12px/1 var(--mono); color: var(--ink); }
+.steps small { display: block; font: 500 11px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+.article { display: grid; gap: 40px; min-width: 0; order: 1; }
+.prose { display: grid; gap: 16px; max-width: 66ch; }
+.prose h2 { font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 700; line-height: 1.15; }
+.prose p { margin: 0; }
+.prose strong { font-weight: 700; }
+
+figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 24px 24px 18px; display: grid; gap: 14px; }
+figure .fig-scroll { overflow-x: auto; }
+figure svg { display: block; width: 100%; min-width: 520px; height: auto; }
+figcaption { font-size: 14px; color: var(--muted); line-height: 1.5; max-width: 70ch; }
+figcaption b { color: var(--ink); }
+svg text { font-family: var(--body); font-size: 13px; }
+svg .tb { fill: var(--ink); font-weight: 600; }
+svg .tm { fill: var(--muted); font-size: 12px; }
+svg .tb-dark { fill: #1C2220; font-weight: 700; }
+svg .tb-now { fill: var(--now); font-weight: 600; font-size: 12px; }
+svg .mono { font-family: var(--mono); font-size: 11.5px; }
+.fill-ink { fill: var(--ink); } .fill-surface { fill: var(--surface); } .fill-sunken { fill: var(--sunken); }
+.fill-accent { fill: var(--accent); } .fill-accent-tint { fill: var(--accent-tint); } .fill-now { fill: var(--now); } .fill-now-tint { fill: var(--now-tint); } .fill-corein { fill: var(--core-in); }
+.fill-u1 { fill: var(--u1); } .fill-u2 { fill: var(--u2); } .fill-u3 { fill: var(--u3); } .fill-u4 { fill: var(--u4); }
+.stroke-ink { stroke: var(--ink); } .stroke-muted { stroke: var(--muted); } .stroke-line { stroke: var(--line); } .stroke-surface { stroke: var(--surface); } .stroke-accent { stroke: var(--accent); } .stroke-now { stroke: var(--now); }
+.data { font-size: 13.5px; }
+.data summary { cursor: pointer; color: var(--accent); font-weight: 600; width: max-content; }
+.data .tbl { overflow-x: auto; margin-top: 10px; }
+.data table { border-collapse: collapse; min-width: 100%; font-variant-numeric: tabular-nums; }
+.data th, .data td { text-align: left; padding: 7px 12px 7px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.data th { font: 500 11px/1.2 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+.note { background: var(--now-tint); border-radius: var(--r); padding: 24px; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; }
+.note .pin { width: 44px; height: 44px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; color: var(--now); }
+.note h3 { font-size: 1.2rem; font-weight: 700; margin: 4px 0 8px; }
+.note p { margin: 0; max-width: 64ch; }
+
+.terms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; margin: 0; }
+.terms div { padding: 14px 0; border-top: 1px solid var(--line); }
+.terms dt { font: 700 15px/1.3 var(--body); margin-bottom: 4px; }
+.terms dd { margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.5; }
+
+.checks { display: grid; gap: 10px; }
+.checks details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.checks summary { list-style: none; cursor: pointer; padding: 16px 18px; display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 12px; align-items: start; font-weight: 600; }
+.checks summary::-webkit-details-marker { display: none; }
+.checks summary .q { font: 600 12px/1 var(--mono); width: 30px; height: 26px; border-radius: 8px; background: var(--accent-tint); color: var(--accent); display: grid; place-items: center; }
+.checks summary .reveal { font: 500 12px/1.9 var(--mono); color: var(--accent); white-space: nowrap; }
+.checks details[open] summary .reveal { color: var(--muted); }
+.checks details[open] summary .reveal::before { content: "Hide"; }
+.checks details:not([open]) summary .reveal::before { content: "Show answer"; }
+.checks .a { padding: 0 18px 18px 60px; color: var(--muted); }
+.checks summary:hover .reveal { text-decoration: underline; }
+
+.task { background: var(--accent-tint); border-radius: var(--r); padding: 28px; display: grid; gap: 16px; }
+.task h2 { font-size: 1.5rem; font-weight: 700; }
+.task ol { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; max-width: 64ch; }
+.task ol li::marker { font-family: var(--mono); font-weight: 500; color: var(--accent); }
+.deliver { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); font-size: 15px; }
+.deliver b { font-weight: 700; }
+
+.next { display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--line); }
+.next .t { font: 700 1.25rem/1.2 var(--display); }
+
+@media (max-width: 900px) {
+  .body { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .aside { position: static; order: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+}
+@media (max-width: 640px) {
+  .head { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-block: 28px 32px; }
+  .coremini { grid-auto-flow: column; justify-content: start; }
+  .coremini .cm { width: 22px; height: 12px; }
+  .coremini .cm.here::after { display: none; }
+  .coremini .label { margin: 0 0 0 10px; align-self: center; }
+  .aside { grid-template-columns: minmax(0, 1fr); }
+  .terms { grid-template-columns: minmax(0, 1fr); }
+  .note { grid-template-columns: minmax(0, 1fr); }
+  figure { padding: 16px 14px 14px; }
+  .task { padding: 22px; }
+  .checks .a { padding-left: 18px; }
+}
+</style>
+</head>
+<body>
+
+<header class="band">
+  <div class="strata lith-u3"></div>
+  <div class="wrap head">
+    <div class="head-text">
+      <div class="crumbs"><span class="chip">GEOL 105</span><span class="chip">Week 5 of 8</span><span class="label">Unit 3 · Deep Time</span></div>
+      <h1>Reading the Rock Record</h1>
+      <p class="lede">Rock layers are pages in Earth's diary. This week you'll learn to put those pages in order, and then to put real dates on them.</p>
+      <div class="meta"><span><b>About 3.5 hours</b> this week</span><span><b>3</b> learning objectives</span><span><b>1</b> activity to submit</span></div>
+    </div>
+    <div class="coremini" aria-hidden="true"><div class="cm lith-u1 past" title="Week 1: Welcome to Planet Earth"></div><div class="cm lith-u1 past" title="Week 2: Rocks &amp; the Rock Cycle"></div><div class="cm lith-u2 past" title="Week 3: Plate Tectonics"></div><div class="cm lith-u2 past" title="Week 4: Earthquakes &amp; Volcanoes"></div><div class="cm lith-u3 here" title="Week 5: Reading the Rock Record"></div><div class="cm lith-u3 future" title="Week 6: Fossils &amp; Mass Extinctions"></div><div class="cm lith-u4 future" title="Week 7: Climate Through Time"></div><div class="cm lith-u4 future" title="Week 8: The Anthropocene"></div><span class="label">W05 / 08</span></div>
+  </div>
+</header>
+
+<div class="wrap body">
+  <aside class="aside">
+    <section class="card">
+      <h2>By the end of this week you can</h2>
+      <ul class="obj"><li>Apply the principles of relative dating to a sequence of rock layers</li><li>Recognize unconformities and explain what they represent</li><li>Calculate the age of a sample from its half-lives</li></ul>
+    </section>
+    <section class="card">
+      <h2>Your path this week</h2>
+      <ol class="steps"><li><span><small>Read · 50 min</small>Putting events in order</span></li><li><span><small>Study · 15 min</small>The half-life chart</span></li><li><span><small>Check · 15 min</small>Check your understanding</span></li><li><span><small>Lab · 90 min</small>Lab 5: Tell the story of a cliff</span></li><li><span><small>Reflect · 20 min</small>Field journal, entry 5</span></li></ol>
+    </section>
+  </aside>
+
+  <main class="article">
+    <section class="prose"><h2>Putting events in order</h2><p>In 1669 the Danish scientist Nicolas Steno set out simple rules that geologists still use. <strong>Superposition</strong>: in undisturbed layers, the oldest is at the bottom and the youngest at the top. <strong>Original horizontality</strong>: sediment settles in flat layers, so tilted or folded layers were disturbed later.</p><p><strong>Cross-cutting relationships</strong> add another rule: anything that cuts through rock layers, such as a fault or a vein of igneous rock, must be younger than the layers it cuts.</p><p>Sometimes layers are missing. An <strong>unconformity</strong> is a surface where rock was eroded away, or never deposited, before the next layers formed on top. Each one is a gap in the record.</p></section>
+
+    <figure>
+      <div class="fig-scroll"><svg viewBox="0 0 680 290" role="img" aria-label="Bar chart: parent isotope remaining after 0 to 5 half-lives, halving each time"><line x1="64" y1="220" x2="664" y2="220" class="stroke-line" stroke-width="1"/><text x="54" y="224" class="tm mono" text-anchor="end">0%</text><line x1="64" y1="172.5" x2="664" y2="172.5" class="stroke-line" stroke-width="1"/><text x="54" y="176.5" class="tm mono" text-anchor="end">25%</text><line x1="64" y1="125" x2="664" y2="125" class="stroke-line" stroke-width="1"/><text x="54" y="129" class="tm mono" text-anchor="end">50%</text><line x1="64" y1="77.5" x2="664" y2="77.5" class="stroke-line" stroke-width="1"/><text x="54" y="81.5" class="tm mono" text-anchor="end">75%</text><line x1="64" y1="30" x2="664" y2="30" class="stroke-line" stroke-width="1"/><text x="54" y="34" class="tm mono" text-anchor="end">100%</text><path d="M86 220V34Q86 30 90 30H138Q142 30 142 34V220Z" class="fill-accent"><title>0 half-lives (0 years for C-14): 100% remaining</title></path><text x="114" y="22" class="tb mono" text-anchor="middle">100%</text><text x="114" y="240" class="tb mono" text-anchor="middle">0</text><text x="114" y="257" class="tm mono" text-anchor="middle">0</text><path d="M186 220V129Q186 125 190 125H238Q242 125 242 129V220Z" class="fill-accent"><title>1 half-lives (5,730 years for C-14): 50% remaining</title></path><text x="214" y="117" class="tb mono" text-anchor="middle">50%</text><text x="214" y="240" class="tb mono" text-anchor="middle">1</text><text x="214" y="257" class="tm mono" text-anchor="middle">5,730</text><path d="M286 220V176.5Q286 172.5 290 172.5H338Q342 172.5 342 176.5V220Z" class="fill-accent"><title>2 half-lives (11,460 years for C-14): 25% remaining</title></path><text x="314" y="164.5" class="tb mono" text-anchor="middle">25%</text><text x="314" y="240" class="tb mono" text-anchor="middle">2</text><text x="314" y="257" class="tm mono" text-anchor="middle">11,460</text><path d="M386 220V200.25Q386 196.25 390 196.25H438Q442 196.25 442 200.25V220Z" class="fill-accent"><title>3 half-lives (17,190 years for C-14): 12.5% remaining</title></path><text x="414" y="188.25" class="tb mono" text-anchor="middle">12.5%</text><text x="414" y="240" class="tb mono" text-anchor="middle">3</text><text x="414" y="257" class="tm mono" text-anchor="middle">17,190</text><path d="M486 220V212.125Q486 208.125 490 208.125H538Q542 208.125 542 212.125V220Z" class="fill-accent"><title>4 half-lives (22,920 years for C-14): 6.25% remaining</title></path><text x="514" y="200.125" class="tb mono" text-anchor="middle">6.25%</text><text x="514" y="240" class="tb mono" text-anchor="middle">4</text><text x="514" y="257" class="tm mono" text-anchor="middle">22,920</text><path d="M586 220V218.0625Q586 214.0625 590 214.0625H638Q642 214.0625 642 218.0625V220Z" class="fill-accent"><title>5 half-lives (28,650 years for C-14): 3.13% remaining</title></path><text x="614" y="206.0625" class="tb mono" text-anchor="middle">3.13%</text><text x="614" y="240" class="tb mono" text-anchor="middle">5</text><text x="614" y="257" class="tm mono" text-anchor="middle">28,650</text><text x="64" y="282" class="tm" text-anchor="start">Top row: half-lives elapsed.  Bottom row: carbon-14 age in years.</text></svg></div>
+      <figcaption>After each half-life, half of the remaining parent isotope has decayed. For carbon-14, one half-life is 5,730 years.</figcaption>
+      <details class="data"><summary>Show the data as a table</summary><div class="tbl"><table><thead><tr><th>Half-lives elapsed</th><th>Carbon-14 age (years)</th><th>Parent isotope remaining</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>100%</td></tr><tr><td>1</td><td>5,730</td><td>50%</td></tr><tr><td>2</td><td>11,460</td><td>25%</td></tr><tr><td>3</td><td>17,190</td><td>12.5%</td></tr><tr><td>4</td><td>22,920</td><td>6.25%</td></tr><tr><td>5</td><td>28,650</td><td>3.13%</td></tr></tbody></table></div></details>
+    </figure>
+
+    <section class="prose"><h2>Putting numbers on time</h2><p>Relative dating gives order but not ages. Real ages come from radioactive isotopes, which decay into other elements at a steady, known rate. The <strong>half-life</strong> is the time it takes for half of a sample's parent isotope to decay.</p><p>By measuring how much parent isotope remains compared with the daughter product it decays into, scientists can calculate how long the clock has been running.</p><p>Different isotopes suit different jobs. Carbon-14 has a half-life of 5,730 years and dates once-living material up to about 50,000 years old. Uranium-238 has a half-life of 4.5 billion years and is used to date the oldest rocks on Earth, including mineral grains 4.4 billion years old.</p></section>
+
+    <section class="note" aria-label="Field note">
+      <div class="pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+      <div><span class="label">Field note</span><h3>Grand Canyon, Arizona</h3><p>Nearly two billion years of history are exposed in the canyon walls. At the Great Unconformity, flat layers of sandstone around 500 million years old sit directly on top of schist that is about 1.75 billion years old. In places, more than a billion years of rock record is simply gone.</p></div>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Key terms</h2>
+      <dl class="terms"><div><dt>Superposition</dt><dd>In undisturbed layers, older rocks lie below younger rocks.</dd></div><div><dt>Original horizontality</dt><dd>Sediment is deposited in flat layers. Tilted layers were moved after they formed.</dd></div><div><dt>Cross-cutting relationships</dt><dd>A feature that cuts through rock is younger than the rock it cuts.</dd></div><div><dt>Unconformity</dt><dd>A buried surface of erosion or non-deposition: a gap in the rock record.</dd></div><div><dt>Isotope</dt><dd>A form of an element with a particular number of neutrons. Some isotopes are radioactive.</dd></div><div><dt>Half-life</dt><dd>The time for half of a radioactive parent isotope to decay.</dd></div></dl>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Check your understanding</h2>
+      <p style="color:var(--muted)">Try each question before you open the answer. These aren't graded.</p>
+      <div class="checks"><details><summary><span class="q">Q1</span><span>A vertical band of basalt cuts through three sandstone layers. Which is older, the basalt or the sandstone?</span><span class="reveal"></span></summary><div class="a">All three sandstone layers are older. The basalt cut through them, so it must have come later.</div></details><details><summary><span class="q">Q2</span><span>A sample has 25% of its original parent isotope left. How many half-lives have passed?</span><span class="reveal"></span></summary><div class="a">Two. After one half-life 50% remains, and after two, 25%.</div></details><details><summary><span class="q">Q3</span><span>Why can't carbon-14 be used to date a dinosaur bone?</span><span class="reveal"></span></summary><div class="a">Dinosaurs lived more than 66 million years ago. After about 50,000 years too little carbon-14 is left to measure. Geologists instead date volcanic ash layers above and below the fossil using longer-lived isotopes.</div></details></div>
+    </section>
+
+    <section class="task" aria-labelledby="task-h">
+      <span class="label">This week's activity</span>
+      <h2 id="task-h">Lab 5: Tell the story of a cliff</h2>
+      <ol><li>Use the cross-section in the lab packet. It shows layers A to F, a fault and an igneous dike.</li><li>List every event from oldest to youngest.</li><li>Beside each event, name the principle that tells you where it belongs in the sequence.</li></ol>
+      <div class="deliver"><span class="label">To submit</span><b>Submit your numbered sequence with justifications.</b></div>
+    </section>
+
+    <div class="next">
+      <div><span class="label">Coming up in Week 6</span><div class="t">Fossils &amp; Mass Extinctions</div></div><span class="chip">Unit 3 · Deep Time</span>
+    </div>
+  </main>
+</div>
+</body>
+</html>

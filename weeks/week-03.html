@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 3: Plate Tectonics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #ECEEEA;
+  --surface: #FFFFFF;
+  --sunken: #E2E5DF;
+  --ink: #1C2220;
+  --muted: #58625D;
+  --line: #D3D8D1;
+  --accent: #1E5C78;      /* slate blue: links, buttons, chart marks */
+  --accent-ink: #FFFFFF;
+  --accent-tint: #E3EEF2;
+  --now: #C98A1A;          /* ochre: highlights */
+  --now-tint: #F6ECD8;
+  --core-in: #F2C76B;
+  --u1: #CDAA72;           /* sandstone */
+  --u2: #A0604A;           /* red beds */
+  --u3: #7E8D6E;           /* shale */
+  --u4: #8FA2B5;           /* limestone */
+  --pattern: rgba(28,34,32,.22);
+  --shadow: 0 1px 2px rgba(28,34,32,.06), 0 8px 24px rgba(28,34,32,.06);
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --r: 18px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #131816; --surface: #1C2320; --sunken: #171D1A; --ink: #E5E9E3; --muted: #9AA59E; --line: #2C3531;
+    --accent: #84BCD4; --accent-ink: #0F1A1F; --accent-tint: #1A2A31; --now: #E5AA45; --now-tint: #2D261A; --core-in: #F2C76B;
+    --u1: #B8975F; --u2: #93584A; --u3: #6F7E61; --u4: #7A8DA0; --pattern: rgba(0,0,0,.32);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #131816; --surface: #1C2320; --sunken: #171D1A; --ink: #E5E9E3; --muted: #9AA59E; --line: #2C3531;
+    --accent: #84BCD4; --accent-ink: #0F1A1F; --accent-tint: #1A2A31; --now: #E5AA45; --now-tint: #2D261A; --core-in: #F2C76B;
+    --u1: #B8975F; --u2: #93584A; --u3: #6F7E61; --u4: #7A8DA0; --pattern: rgba(0,0,0,.32);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+.label { font: 500 11px/1 var(--mono); text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+.chip { font: 500 12px/1 var(--mono); letter-spacing: .04em; padding: 6px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.lith-u1 { background: radial-gradient(circle at 30% 40%, var(--pattern) 1.1px, transparent 1.6px) 0 0 / 7px 7px, radial-gradient(circle at 70% 80%, var(--pattern) .9px, transparent 1.4px) 0 0 / 9px 9px, var(--u1); }
+.lith-u2 { background: repeating-linear-gradient(0deg, transparent 0 7px, var(--pattern) 7px 8px), radial-gradient(circle, var(--pattern) .8px, transparent 1.2px) 0 0 / 6px 8px, var(--u2); }
+.lith-u3 { background: repeating-linear-gradient(0deg, transparent 0 4px, var(--pattern) 4px 5px), repeating-linear-gradient(90deg, transparent 0 9px, var(--u3) 9px 13px), var(--u3); }
+.lith-u4 { background: repeating-linear-gradient(0deg, transparent 0 10px, var(--pattern) 10px 11px), repeating-linear-gradient(90deg, transparent 0 17px, var(--pattern) 17px 18px), var(--u4); }
+
+@keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.band { background: var(--surface); border-bottom: 1px solid var(--line); }
+.strata { height: 12px; }
+.head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: end; padding-block: 36px 40px; animation: rise .5s cubic-bezier(.2,.7,.2,1) both; }
+.head-text { display: grid; gap: 16px; min-width: 0; }
+.crumbs { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.head h1 { font-size: clamp(2.4rem, 5.6vw, 4.2rem); font-weight: 800; line-height: .98; letter-spacing: -0.03em; }
+.head .lede { font-size: 18px; line-height: 1.55; color: var(--muted); margin: 0; max-width: 60ch; }
+.meta { display: flex; gap: 8px 22px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+.meta b { color: var(--ink); font-weight: 600; }
+.coremini { display: grid; gap: 3px; justify-items: center; }
+.coremini .cm { width: 34px; height: 15px; border-left: 1px solid var(--pattern); border-right: 1px solid var(--pattern); position: relative; }
+.coremini .cm.past, .coremini .cm.future { opacity: .45; }
+.coremini .cm.here { box-shadow: 0 0 0 3px var(--now); opacity: 1; }
+.coremini .cm.here::after { content: ""; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); border: 6px solid transparent; border-right-color: var(--now); }
+.coremini .label { margin-top: 8px; }
+
+.body { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; padding-block: 40px 64px; align-items: start; }
+.aside { position: sticky; top: 20px; display: grid; gap: 16px; order: 2; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; display: grid; gap: 12px; }
+.card h2 { font-size: 1.05rem; font-weight: 700; }
+.obj { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 14.5px; line-height: 1.45; }
+.obj li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; }
+.obj li::before { content: ""; width: 8px; height: 8px; margin-top: 7px; border-radius: 2px; background: var(--now); }
+.steps { margin: 0; padding: 0; list-style: none; display: grid; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.35; }
+.steps li:first-child { border-top: 0; padding-top: 0; }
+.steps li::before { content: counter(s); width: 24px; height: 24px; border-radius: 50%; background: var(--sunken); display: grid; place-items: center; font: 600 12px/1 var(--mono); color: var(--ink); }
+.steps small { display: block; font: 500 11px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+.article { display: grid; gap: 40px; min-width: 0; order: 1; }
+.prose { display: grid; gap: 16px; max-width: 66ch; }
+.prose h2 { font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 700; line-height: 1.15; }
+.prose p { margin: 0; }
+.prose strong { font-weight: 700; }
+
+figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 24px 24px 18px; display: grid; gap: 14px; }
+figure .fig-scroll { overflow-x: auto; }
+figure svg { display: block; width: 100%; min-width: 520px; height: auto; }
+figcaption { font-size: 14px; color: var(--muted); line-height: 1.5; max-width: 70ch; }
+figcaption b { color: var(--ink); }
+svg text { font-family: var(--body); font-size: 13px; }
+svg .tb { fill: var(--ink); font-weight: 600; }
+svg .tm { fill: var(--muted); font-size: 12px; }
+svg .tb-dark { fill: #1C2220; font-weight: 700; }
+svg .tb-now { fill: var(--now); font-weight: 600; font-size: 12px; }
+svg .mono { font-family: var(--mono); font-size: 11.5px; }
+.fill-ink { fill: var(--ink); } .fill-surface { fill: var(--surface); } .fill-sunken { fill: var(--sunken); }
+.fill-accent { fill: var(--accent); } .fill-accent-tint { fill: var(--accent-tint); } .fill-now { fill: var(--now); } .fill-now-tint { fill: var(--now-tint); } .fill-corein { fill: var(--core-in); }
+.fill-u1 { fill: var(--u1); } .fill-u2 { fill: var(--u2); } .fill-u3 { fill: var(--u3); } .fill-u4 { fill: var(--u4); }
+.stroke-ink { stroke: var(--ink); } .stroke-muted { stroke: var(--muted); } .stroke-line { stroke: var(--line); } .stroke-surface { stroke: var(--surface); } .stroke-accent { stroke: var(--accent); } .stroke-now { stroke: var(--now); }
+.data { font-size: 13.5px; }
+.data summary { cursor: pointer; color: var(--accent); font-weight: 600; width: max-content; }
+.data .tbl { overflow-x: auto; margin-top: 10px; }
+.data table { border-collapse: collapse; min-width: 100%; font-variant-numeric: tabular-nums; }
+.data th, .data td { text-align: left; padding: 7px 12px 7px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.data th { font: 500 11px/1.2 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+.note { background: var(--now-tint); border-radius: var(--r); padding: 24px; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; }
+.note .pin { width: 44px; height: 44px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; color: var(--now); }
+.note h3 { font-size: 1.2rem; font-weight: 700; margin: 4px 0 8px; }
+.note p { margin: 0; max-width: 64ch; }
+
+.terms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; margin: 0; }
+.terms div { padding: 14px 0; border-top: 1px solid var(--line); }
+.terms dt { font: 700 15px/1.3 var(--body); margin-bottom: 4px; }
+.terms dd { margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.5; }
+
+.checks { display: grid; gap: 10px; }
+.checks details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.checks summary { list-style: none; cursor: pointer; padding: 16px 18px; display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 12px; align-items: start; font-weight: 600; }
+.checks summary::-webkit-details-marker { display: none; }
+.checks summary .q { font: 600 12px/1 var(--mono); width: 30px; height: 26px; border-radius: 8px; background: var(--accent-tint); color: var(--accent); display: grid; place-items: center; }
+.checks summary .reveal { font: 500 12px/1.9 var(--mono); color: var(--accent); white-space: nowrap; }
+.checks details[open] summary .reveal { color: var(--muted); }
+.checks details[open] summary .reveal::before { content: "Hide"; }
+.checks details:not([open]) summary .reveal::before { content: "Show answer"; }
+.checks .a { padding: 0 18px 18px 60px; color: var(--muted); }
+.checks summary:hover .reveal { text-decoration: underline; }
+
+.task { background: var(--accent-tint); border-radius: var(--r); padding: 28px; display: grid; gap: 16px; }
+.task h2 { font-size: 1.5rem; font-weight: 700; }
+.task ol { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; max-width: 64ch; }
+.task ol li::marker { font-family: var(--mono); font-weight: 500; color: var(--accent); }
+.deliver { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); font-size: 15px; }
+.deliver b { font-weight: 700; }
+
+.next { display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--line); }
+.next .t { font: 700 1.25rem/1.2 var(--display); }
+
+@media (max-width: 900px) {
+  .body { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .aside { position: static; order: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+}
+@media (max-width: 640px) {
+  .head { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-block: 28px 32px; }
+  .coremini { grid-auto-flow: column; justify-content: start; }
+  .coremini .cm { width: 22px; height: 12px; }
+  .coremini .cm.here::after { display: none; }
+  .coremini .label { margin: 0 0 0 10px; align-self: center; }
+  .aside { grid-template-columns: minmax(0, 1fr); }
+  .terms { grid-template-columns: minmax(0, 1fr); }
+  .note { grid-template-columns: minmax(0, 1fr); }
+  figure { padding: 16px 14px 14px; }
+  .task { padding: 22px; }
+  .checks .a { padding-left: 18px; }
+}
+</style>
+</head>
+<body>
+
+<header class="band">
+  <div class="strata lith-u2"></div>
+  <div class="wrap head">
+    <div class="head-text">
+      <div class="crumbs"><span class="chip">GEOL 105</span><span class="chip">Week 3 of 8</span><span class="label">Unit 2 · A Restless Planet</span></div>
+      <h1>Plate Tectonics</h1>
+      <p class="lede">The ground under you is moving at about the speed your fingernails grow. Over millions of years, that slow drift opens oceans, raises mountains and rearranges whole continents.</p>
+      <div class="meta"><span><b>About 3 hours</b> this week</span><span><b>3</b> learning objectives</span><span><b>1</b> activity to submit</span></div>
+    </div>
+    <div class="coremini" aria-hidden="true"><div class="cm lith-u1 past" title="Week 1: Welcome to Planet Earth"></div><div class="cm lith-u1 past" title="Week 2: Rocks &amp; the Rock Cycle"></div><div class="cm lith-u2 here" title="Week 3: Plate Tectonics"></div><div class="cm lith-u2 future" title="Week 4: Earthquakes &amp; Volcanoes"></div><div class="cm lith-u3 future" title="Week 5: Reading the Rock Record"></div><div class="cm lith-u3 future" title="Week 6: Fossils &amp; Mass Extinctions"></div><div class="cm lith-u4 future" title="Week 7: Climate Through Time"></div><div class="cm lith-u4 future" title="Week 8: The Anthropocene"></div><span class="label">W03 / 08</span></div>
+  </div>
+</header>
+
+<div class="wrap body">
+  <aside class="aside">
+    <section class="card">
+      <h2>By the end of this week you can</h2>
+      <ul class="obj"><li>Summarize the evidence for continental drift and seafloor spreading</li><li>Distinguish the three types of plate boundary and the features each one creates</li><li>Connect plate motion to the rock cycle</li></ul>
+    </section>
+    <section class="card">
+      <h2>Your path this week</h2>
+      <ol class="steps"><li><span><small>Read · 50 min</small>From drift to plates</span></li><li><span><small>Study · 15 min</small>Plate boundary diagram</span></li><li><span><small>Check · 15 min</small>Check your understanding</span></li><li><span><small>Explore · 60 min</small>Map activity: Find the boundaries</span></li><li><span><small>Reflect · 20 min</small>Field journal, entry 3</span></li></ol>
+    </section>
+  </aside>
+
+  <main class="article">
+    <section class="prose"><h2>From drift to plates</h2><p>In 1912 the German meteorologist Alfred Wegener proposed that the continents had once been joined in a single landmass and had since drifted apart. His evidence was strong: the coastlines of South America and Africa fit together, the same fossil reptile, <em>Mesosaurus</em>, appears on both, and ancient glacial deposits turn up in places that are now tropical.</p><p>Most geologists rejected the idea because Wegener couldn't explain what moved the continents. The answer came from the seafloor. In the 1950s Marie Tharp, working with Bruce Heezen, mapped a deep rift valley running down the center of the Mid-Atlantic Ridge. Magnetic surveys then showed matching stripes of rock on either side of the ridges, recording flips in Earth's magnetic field as new crust formed and spread outward.</p><p>The seafloor is young. Almost none of it is older than about 200 million years, because it is constantly made at ridges and destroyed elsewhere. By the late 1960s these discoveries had come together as <strong>plate tectonics</strong>: Earth's rigid outer shell is broken into plates that move a few centimeters a year.</p></section>
+
+    <figure>
+      <div class="fig-scroll"><svg viewBox="0 0 720 270" role="img" aria-label="Three plate boundary types: divergent, convergent, transform"><defs><marker id="pb-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="fill-ink"/></marker></defs><rect x="20" y="114" width="200" height="76" rx="4" class="fill-sunken"/><path d="M110 114L130 114L160 190L80 190Z" class="fill-now"/><rect x="20" y="84" width="90" height="30" class="fill-u4"/><rect x="130" y="84" width="90" height="30" class="fill-u4"/><line x1="90" y1="66" x2="40" y2="66" class="stroke-ink" stroke-width="2" marker-end="url(#pb-ah)"/><line x1="150" y1="66" x2="200" y2="66" class="stroke-ink" stroke-width="2" marker-end="url(#pb-ah)"/><text x="120" y="24" class="tb" text-anchor="middle">Divergent</text><text x="120" y="216" class="tm" text-anchor="middle">Plates pull apart</text><text x="120" y="233" class="tm" text-anchor="middle">e.g. Mid-Atlantic Ridge</text><rect x="260" y="110" width="200" height="80" rx="4" class="fill-sunken"/><polygon points="260,86 368,86 428,176 412,188 354,112 260,112" class="fill-u4"/><rect x="362" y="72" width="98" height="40" class="fill-u1"/><polygon points="396,72 412,48 428,72" class="fill-u2"/><circle cx="410" cy="140" r="9" class="fill-now"/><line x1="280" y1="66" x2="330" y2="66" class="stroke-ink" stroke-width="2" marker-end="url(#pb-ah)"/><line x1="460" y1="34" x2="438" y2="34" class="stroke-ink" stroke-width="2" marker-end="url(#pb-ah)"/><text x="360" y="24" class="tb" text-anchor="middle">Convergent</text><text x="360" y="216" class="tm" text-anchor="middle">One plate sinks beneath another</text><text x="360" y="233" class="tm" text-anchor="middle">e.g. the Andes</text><rect x="500" y="50" width="95" height="140" rx="4" class="fill-u1"/><rect x="605" y="50" width="95" height="140" rx="4" class="fill-u1"/><line x1="600" y1="44" x2="600" y2="196" class="stroke-ink" stroke-width="2" stroke-dasharray="6 5"/><line x1="547" y1="165" x2="547" y2="78" class="stroke-ink" stroke-width="2" marker-end="url(#pb-ah)"/><line x1="652" y1="78" x2="652" y2="165" class="stroke-ink" stroke-width="2" marker-end="url(#pb-ah)"/><text x="600" y="24" class="tb" text-anchor="middle">Transform</text><text x="600" y="216" class="tm" text-anchor="middle">Plates slide past (view from above)</text><text x="600" y="233" class="tm" text-anchor="middle">e.g. San Andreas Fault</text><rect x="190" y="252" width="14" height="10" class="fill-u4"/><text x="210" y="261" class="tm" text-anchor="start">Oceanic plate</text><rect x="310" y="252" width="14" height="10" class="fill-u1"/><text x="330" y="261" class="tm" text-anchor="start">Continental plate</text><rect x="450" y="252" width="14" height="10" class="fill-now"/><text x="470" y="261" class="tm" text-anchor="start">Magma</text></svg></div>
+      <figcaption>The three kinds of plate boundary. Divergent and convergent boundaries are shown in cross-section; the transform boundary is shown from above.</figcaption>
+      
+    </figure>
+
+    <section class="prose"><h2>Where plates meet</h2><p><strong>Divergent boundaries</strong> are where plates pull apart. Magma rises to fill the gap and forms new crust, as along the Mid-Atlantic Ridge and in Iceland.</p><p><strong>Convergent boundaries</strong> are where plates collide. When oceanic crust meets a continent, the denser ocean plate sinks back into the mantle, a process called subduction. That creates deep ocean trenches and chains of volcanoes like the Andes. When two continents collide, neither sinks easily, and the crust crumples into huge mountain ranges like the Himalaya.</p><p><strong>Transform boundaries</strong> are where plates slide past each other. Crust is neither created nor destroyed, but the plates lock and slip, causing frequent earthquakes. California's San Andreas Fault is the best-known example.</p></section>
+
+    <section class="note" aria-label="Field note">
+      <div class="pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+      <div><span class="label">Field note</span><h3>Þingvellir, Iceland</h3><p>In Þingvellir National Park you can walk along a rift valley where the North American and Eurasian plates are pulling apart by about 2 cm a year. In the Silfra fissure, divers swim through clear glacial meltwater in the crack between the two plates.</p></div>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Key terms</h2>
+      <dl class="terms"><div><dt>Plate</dt><dd>A rigid slab of lithosphere that moves as a unit over the asthenosphere.</dd></div><div><dt>Subduction</dt><dd>The sinking of one plate beneath another into the mantle at a convergent boundary.</dd></div><div><dt>Mid-ocean ridge</dt><dd>An undersea mountain chain where plates diverge and new oceanic crust forms.</dd></div><div><dt>Trench</dt><dd>A deep, narrow valley in the ocean floor where a plate is subducting.</dd></div><div><dt>Seafloor spreading</dt><dd>The creation of new oceanic crust at ridges and its movement away from them.</dd></div><div><dt>Paleomagnetism</dt><dd>The record of Earth's past magnetic field preserved in rocks.</dd></div></dl>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Check your understanding</h2>
+      <p style="color:var(--muted)">Try each question before you open the answer. These aren't graded.</p>
+      <div class="checks"><details><summary><span class="q">Q1</span><span>The oldest continental rocks are about 4 billion years old, but the oldest seafloor is only about 200 million years old. Why the difference?</span><span class="reveal"></span></summary><div class="a">Oceanic crust is dense and is recycled into the mantle at subduction zones. Continental crust is too light to sink, so very old pieces of it survive.</div></details><details><summary><span class="q">Q2</span><span>The Andes have many active volcanoes, but the Himalaya have almost none. Why?</span><span class="reveal"></span></summary><div class="a">The Andes sit above an oceanic plate subducting under a continent, which melts mantle rock and feeds volcanoes. The Himalaya formed where two continents collided, and no plate is subducting deep enough to make magma.</div></details><details><summary><span class="q">Q3</span><span>Iceland sits on the Mid-Atlantic Ridge. Is it getting wider or narrower?</span><span class="reveal"></span></summary><div class="a">Wider, by about 2 cm a year, because the plates on either side are moving apart.</div></details></div>
+    </section>
+
+    <section class="task" aria-labelledby="task-h">
+      <span class="label">This week's activity</span>
+      <h2 id="task-h">Map activity: Find the boundaries</h2>
+      <ol><li>Open the USGS &quot;This Dynamic Planet&quot; map, or any world map of plate boundaries.</li><li>Find three examples of each boundary type: divergent, convergent and transform.</li><li>For each example, name the feature it has created, such as a ridge, trench, volcanic arc, mountain range or fault.</li></ol>
+      <div class="deliver"><span class="label">To submit</span><b>Submit a labeled screenshot or a list of nine locations.</b></div>
+    </section>
+
+    <div class="next">
+      <div><span class="label">Coming up in Week 4</span><div class="t">Earthquakes &amp; Volcanoes</div></div><span class="chip">Unit 2 · A Restless Planet</span>
+    </div>
+  </main>
+</div>
+</body>
+</html>

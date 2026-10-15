@@ -1,8 +1,8 @@
-# Brightspace course homepage prototype
+# GEOL 105 mock course: Brightspace homepage + weekly pages
 
-A static landing page for a Brightspace course (sample: GEOL 105, Earth Through Time).
+- `index.html`: the course landing page (served by GitHub Pages).
+- `weeks/week-01.html` … `week-08.html`: one page per week, to upload into each Brightspace Content module.
+- `src/weeks-content.js`: all course text. Edit it, then run `./build.sh` to regenerate every page.
+- `src/build.js`: the page templates, styles and diagrams.
 
-- `index.html` is the published page (served by GitHub Pages).
-- `src/homepage.html` is the source; run `./build.sh` after editing it to regenerate `index.html`.
-
-Each term, replace every `href="#"` with the full URL of the matching Brightspace Content module.
+Each term, replace every `href="#"` in `index.html` with the full URL of the matching Brightspace Content module.

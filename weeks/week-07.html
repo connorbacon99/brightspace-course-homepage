@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 7: Climate Through Time</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #ECEEEA;
+  --surface: #FFFFFF;
+  --sunken: #E2E5DF;
+  --ink: #1C2220;
+  --muted: #58625D;
+  --line: #D3D8D1;
+  --accent: #1E5C78;      /* slate blue: links, buttons, chart marks */
+  --accent-ink: #FFFFFF;
+  --accent-tint: #E3EEF2;
+  --now: #C98A1A;          /* ochre: highlights */
+  --now-tint: #F6ECD8;
+  --core-in: #F2C76B;
+  --u1: #CDAA72;           /* sandstone */
+  --u2: #A0604A;           /* red beds */
+  --u3: #7E8D6E;           /* shale */
+  --u4: #8FA2B5;           /* limestone */
+  --pattern: rgba(28,34,32,.22);
+  --shadow: 0 1px 2px rgba(28,34,32,.06), 0 8px 24px rgba(28,34,32,.06);
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --r: 18px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #131816; --surface: #1C2320; --sunken: #171D1A; --ink: #E5E9E3; --muted: #9AA59E; --line: #2C3531;
+    --accent: #84BCD4; --accent-ink: #0F1A1F; --accent-tint: #1A2A31; --now: #E5AA45; --now-tint: #2D261A; --core-in: #F2C76B;
+    --u1: #B8975F; --u2: #93584A; --u3: #6F7E61; --u4: #7A8DA0; --pattern: rgba(0,0,0,.32);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #131816; --surface: #1C2320; --sunken: #171D1A; --ink: #E5E9E3; --muted: #9AA59E; --line: #2C3531;
+    --accent: #84BCD4; --accent-ink: #0F1A1F; --accent-tint: #1A2A31; --now: #E5AA45; --now-tint: #2D261A; --core-in: #F2C76B;
+    --u1: #B8975F; --u2: #93584A; --u3: #6F7E61; --u4: #7A8DA0; --pattern: rgba(0,0,0,.32);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+.label { font: 500 11px/1 var(--mono); text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+.chip { font: 500 12px/1 var(--mono); letter-spacing: .04em; padding: 6px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.lith-u1 { background: radial-gradient(circle at 30% 40%, var(--pattern) 1.1px, transparent 1.6px) 0 0 / 7px 7px, radial-gradient(circle at 70% 80%, var(--pattern) .9px, transparent 1.4px) 0 0 / 9px 9px, var(--u1); }
+.lith-u2 { background: repeating-linear-gradient(0deg, transparent 0 7px, var(--pattern) 7px 8px), radial-gradient(circle, var(--pattern) .8px, transparent 1.2px) 0 0 / 6px 8px, var(--u2); }
+.lith-u3 { background: repeating-linear-gradient(0deg, transparent 0 4px, var(--pattern) 4px 5px), repeating-linear-gradient(90deg, transparent 0 9px, var(--u3) 9px 13px), var(--u3); }
+.lith-u4 { background: repeating-linear-gradient(0deg, transparent 0 10px, var(--pattern) 10px 11px), repeating-linear-gradient(90deg, transparent 0 17px, var(--pattern) 17px 18px), var(--u4); }
+
+@keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.band { background: var(--surface); border-bottom: 1px solid var(--line); }
+.strata { height: 12px; }
+.head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: end; padding-block: 36px 40px; animation: rise .5s cubic-bezier(.2,.7,.2,1) both; }
+.head-text { display: grid; gap: 16px; min-width: 0; }
+.crumbs { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.head h1 { font-size: clamp(2.4rem, 5.6vw, 4.2rem); font-weight: 800; line-height: .98; letter-spacing: -0.03em; }
+.head .lede { font-size: 18px; line-height: 1.55; color: var(--muted); margin: 0; max-width: 60ch; }
+.meta { display: flex; gap: 8px 22px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+.meta b { color: var(--ink); font-weight: 600; }
+.coremini { display: grid; gap: 3px; justify-items: center; }
+.coremini .cm { width: 34px; height: 15px; border-left: 1px solid var(--pattern); border-right: 1px solid var(--pattern); position: relative; }
+.coremini .cm.past, .coremini .cm.future { opacity: .45; }
+.coremini .cm.here { box-shadow: 0 0 0 3px var(--now); opacity: 1; }
+.coremini .cm.here::after { content: ""; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); border: 6px solid transparent; border-right-color: var(--now); }
+.coremini .label { margin-top: 8px; }
+
+.body { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; padding-block: 40px 64px; align-items: start; }
+.aside { position: sticky; top: 20px; display: grid; gap: 16px; order: 2; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; display: grid; gap: 12px; }
+.card h2 { font-size: 1.05rem; font-weight: 700; }
+.obj { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 14.5px; line-height: 1.45; }
+.obj li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; }
+.obj li::before { content: ""; width: 8px; height: 8px; margin-top: 7px; border-radius: 2px; background: var(--now); }
+.steps { margin: 0; padding: 0; list-style: none; display: grid; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.35; }
+.steps li:first-child { border-top: 0; padding-top: 0; }
+.steps li::before { content: counter(s); width: 24px; height: 24px; border-radius: 50%; background: var(--sunken); display: grid; place-items: center; font: 600 12px/1 var(--mono); color: var(--ink); }
+.steps small { display: block; font: 500 11px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+.article { display: grid; gap: 40px; min-width: 0; order: 1; }
+.prose { display: grid; gap: 16px; max-width: 66ch; }
+.prose h2 { font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 700; line-height: 1.15; }
+.prose p { margin: 0; }
+.prose strong { font-weight: 700; }
+
+figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 24px 24px 18px; display: grid; gap: 14px; }
+figure .fig-scroll { overflow-x: auto; }
+figure svg { display: block; width: 100%; min-width: 520px; height: auto; }
+figcaption { font-size: 14px; color: var(--muted); line-height: 1.5; max-width: 70ch; }
+figcaption b { color: var(--ink); }
+svg text { font-family: var(--body); font-size: 13px; }
+svg .tb { fill: var(--ink); font-weight: 600; }
+svg .tm { fill: var(--muted); font-size: 12px; }
+svg .tb-dark { fill: #1C2220; font-weight: 700; }
+svg .tb-now { fill: var(--now); font-weight: 600; font-size: 12px; }
+svg .mono { font-family: var(--mono); font-size: 11.5px; }
+.fill-ink { fill: var(--ink); } .fill-surface { fill: var(--surface); } .fill-sunken { fill: var(--sunken); }
+.fill-accent { fill: var(--accent); } .fill-accent-tint { fill: var(--accent-tint); } .fill-now { fill: var(--now); } .fill-now-tint { fill: var(--now-tint); } .fill-corein { fill: var(--core-in); }
+.fill-u1 { fill: var(--u1); } .fill-u2 { fill: var(--u2); } .fill-u3 { fill: var(--u3); } .fill-u4 { fill: var(--u4); }
+.stroke-ink { stroke: var(--ink); } .stroke-muted { stroke: var(--muted); } .stroke-line { stroke: var(--line); } .stroke-surface { stroke: var(--surface); } .stroke-accent { stroke: var(--accent); } .stroke-now { stroke: var(--now); }
+.data { font-size: 13.5px; }
+.data summary { cursor: pointer; color: var(--accent); font-weight: 600; width: max-content; }
+.data .tbl { overflow-x: auto; margin-top: 10px; }
+.data table { border-collapse: collapse; min-width: 100%; font-variant-numeric: tabular-nums; }
+.data th, .data td { text-align: left; padding: 7px 12px 7px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.data th { font: 500 11px/1.2 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+.note { background: var(--now-tint); border-radius: var(--r); padding: 24px; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; }
+.note .pin { width: 44px; height: 44px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; color: var(--now); }
+.note h3 { font-size: 1.2rem; font-weight: 700; margin: 4px 0 8px; }
+.note p { margin: 0; max-width: 64ch; }
+
+.terms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; margin: 0; }
+.terms div { padding: 14px 0; border-top: 1px solid var(--line); }
+.terms dt { font: 700 15px/1.3 var(--body); margin-bottom: 4px; }
+.terms dd { margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.5; }
+
+.checks { display: grid; gap: 10px; }
+.checks details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.checks summary { list-style: none; cursor: pointer; padding: 16px 18px; display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 12px; align-items: start; font-weight: 600; }
+.checks summary::-webkit-details-marker { display: none; }
+.checks summary .q { font: 600 12px/1 var(--mono); width: 30px; height: 26px; border-radius: 8px; background: var(--accent-tint); color: var(--accent); display: grid; place-items: center; }
+.checks summary .reveal { font: 500 12px/1.9 var(--mono); color: var(--accent); white-space: nowrap; }
+.checks details[open] summary .reveal { color: var(--muted); }
+.checks details[open] summary .reveal::before { content: "Hide"; }
+.checks details:not([open]) summary .reveal::before { content: "Show answer"; }
+.checks .a { padding: 0 18px 18px 60px; color: var(--muted); }
+.checks summary:hover .reveal { text-decoration: underline; }
+
+.task { background: var(--accent-tint); border-radius: var(--r); padding: 28px; display: grid; gap: 16px; }
+.task h2 { font-size: 1.5rem; font-weight: 700; }
+.task ol { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; max-width: 64ch; }
+.task ol li::marker { font-family: var(--mono); font-weight: 500; color: var(--accent); }
+.deliver { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); font-size: 15px; }
+.deliver b { font-weight: 700; }
+
+.next { display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--line); }
+.next .t { font: 700 1.25rem/1.2 var(--display); }
+
+@media (max-width: 900px) {
+  .body { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .aside { position: static; order: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+}
+@media (max-width: 640px) {
+  .head { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-block: 28px 32px; }
+  .coremini { grid-auto-flow: column; justify-content: start; }
+  .coremini .cm { width: 22px; height: 12px; }
+  .coremini .cm.here::after { display: none; }
+  .coremini .label { margin: 0 0 0 10px; align-self: center; }
+  .aside { grid-template-columns: minmax(0, 1fr); }
+  .terms { grid-template-columns: minmax(0, 1fr); }
+  .note { grid-template-columns: minmax(0, 1fr); }
+  figure { padding: 16px 14px 14px; }
+  .task { padding: 22px; }
+  .checks .a { padding-left: 18px; }
+}
+</style>
+</head>
+<body>
+
+<header class="band">
+  <div class="strata lith-u4"></div>
+  <div class="wrap head">
+    <div class="head-text">
+      <div class="crumbs"><span class="chip">GEOL 105</span><span class="chip">Week 7 of 8</span><span class="label">Unit 4 · Earth Now</span></div>
+      <h1>Climate Through Time</h1>
+      <p class="lede">Earth's climate has swung from ice-covered to ice-free and back many times. Rocks, ice and fossils record those swings, and they give context to the change happening now.</p>
+      <div class="meta"><span><b>About 3 hours</b> this week</span><span><b>3</b> learning objectives</span><span><b>1</b> activity to submit</span></div>
+    </div>
+    <div class="coremini" aria-hidden="true"><div class="cm lith-u1 past" title="Week 1: Welcome to Planet Earth"></div><div class="cm lith-u1 past" title="Week 2: Rocks &amp; the Rock Cycle"></div><div class="cm lith-u2 past" title="Week 3: Plate Tectonics"></div><div class="cm lith-u2 past" title="Week 4: Earthquakes &amp; Volcanoes"></div><div class="cm lith-u3 past" title="Week 5: Reading the Rock Record"></div><div class="cm lith-u3 past" title="Week 6: Fossils &amp; Mass Extinctions"></div><div class="cm lith-u4 here" title="Week 7: Climate Through Time"></div><div class="cm lith-u4 future" title="Week 8: The Anthropocene"></div><span class="label">W07 / 08</span></div>
+  </div>
+</header>
+
+<div class="wrap body">
+  <aside class="aside">
+    <section class="card">
+      <h2>By the end of this week you can</h2>
+      <ul class="obj"><li>Describe how proxies such as ice cores record past climate</li><li>Explain natural drivers of climate change over different timescales</li><li>Compare today's carbon dioxide levels with the ice-core record</li></ul>
+    </section>
+    <section class="card">
+      <h2>Your path this week</h2>
+      <ol class="steps"><li><span><small>Read · 45 min</small>Reading old climates</span></li><li><span><small>Study · 15 min</small>The carbon dioxide chart</span></li><li><span><small>Check · 15 min</small>Check your understanding</span></li><li><span><small>Lab · 60 min</small>Data lab: Read the Keeling Curve</span></li><li><span><small>Reflect · 20 min</small>Field journal, entry 7</span></li></ol>
+    </section>
+  </aside>
+
+  <main class="article">
+    <section class="prose"><h2>Reading old climates</h2><p>Thermometers only go back a few centuries, so scientists use <strong>proxies</strong>: natural records that respond to climate. Tree rings, pollen in lake mud, the chemistry of seashells and the shapes of glacial deposits all preserve clues about past temperatures and rainfall.</p><p>Ice cores are especially powerful. As snow piles up on ice sheets and compresses into ice, it traps tiny bubbles of air. Each bubble is a sample of the atmosphere from the time it was sealed. The chemistry of the ice itself also records the temperature when the snow fell.</p></section>
+
+    <figure>
+      <div class="fig-scroll"><svg viewBox="0 0 680 290" role="img" aria-label="Line chart of atmospheric CO2 at Mauna Loa rising from 317 ppm in 1960 to 421 ppm in 2023"><line x1="64" y1="219.86666666666667" x2="600" y2="219.86666666666667" class="stroke-line" stroke-width="1" stroke-dasharray="5 4"/><text x="56" y="223.86666666666667" class="tm mono" text-anchor="end">300</text><line x1="64" y1="144.53333333333333" x2="600" y2="144.53333333333333" class="stroke-line" stroke-width="1"/><text x="56" y="148.53333333333333" class="tm mono" text-anchor="end">350</text><line x1="64" y1="69.19999999999999" x2="600" y2="69.19999999999999" class="stroke-line" stroke-width="1"/><text x="56" y="73.19999999999999" class="tm mono" text-anchor="end">400</text><text x="56" y="26" class="tm mono" text-anchor="end">ppm</text><line x1="64" y1="250" x2="600" y2="250" class="stroke-muted" stroke-width="1"/><text x="64" y="270" class="tm mono" text-anchor="middle">1960</text><text x="234.15873015873015" y="270" class="tm mono" text-anchor="middle">1980</text><text x="404.3174603174603" y="270" class="tm mono" text-anchor="middle">2000</text><text x="574.4761904761904" y="270" class="tm mono" text-anchor="middle">2020</text><line x1="64" y1="219.86666666666667" x2="600" y2="219.86666666666667" class="stroke-now" stroke-width="2" stroke-dasharray="6 5"/><text x="72" y="237.86666666666667" class="tb-now" text-anchor="start">≈300 ppm: ice-core maximum, 800,000 years</text><path d="M64.0,194.4L149.1,181.1L234.2,161.4L319.2,137.8L404.3,114.9L489.4,84.4L574.5,47.8L600.0,37.4L600.0,250L64,250Z" class="fill-accent-tint"/><polyline points="64.0,194.4 149.1,181.1 234.2,161.4 319.2,137.8 404.3,114.9 489.4,84.4 574.5,47.8 600.0,37.4" class="stroke-accent" fill="none" stroke-width="2.5" stroke-linejoin="round"/><circle cx="64.0" cy="194.4" r="10" fill="transparent"><title>1960: 316.9 ppm</title></circle><circle cx="149.1" cy="181.1" r="10" fill="transparent"><title>1970: 325.7 ppm</title></circle><circle cx="234.2" cy="161.4" r="10" fill="transparent"><title>1980: 338.8 ppm</title></circle><circle cx="319.2" cy="137.8" r="10" fill="transparent"><title>1990: 354.5 ppm</title></circle><circle cx="404.3" cy="114.9" r="10" fill="transparent"><title>2000: 369.7 ppm</title></circle><circle cx="489.4" cy="84.4" r="10" fill="transparent"><title>2010: 389.9 ppm</title></circle><circle cx="574.5" cy="47.8" r="10" fill="transparent"><title>2020: 414.2 ppm</title></circle><circle cx="600.0" cy="37.4" r="10" fill="transparent"><title>2023: 421.1 ppm</title></circle><circle cx="600.0" cy="37.4" r="5" class="fill-accent stroke-surface" stroke-width="2"/><text x="610" y="41.40933333333328" class="tb mono" text-anchor="start">421 ppm</text><text x="610" y="56.40933333333328" class="tm mono" text-anchor="start">2023</text></svg></div>
+      <figcaption>Atmospheric carbon dioxide measured at Mauna Loa Observatory, Hawai‘i (NOAA annual means). The dashed line marks about 300 ppm, the highest level in 800,000 years of ice-core records before the industrial era. The vertical axis starts at 280 ppm.</figcaption>
+      <details class="data"><summary>Show the data as a table</summary><div class="tbl"><table><thead><tr><th>Year</th><th>CO₂ (ppm)</th></tr></thead><tbody><tr><td>1960</td><td>316.9</td></tr><tr><td>1970</td><td>325.7</td></tr><tr><td>1980</td><td>338.8</td></tr><tr><td>1990</td><td>354.5</td></tr><tr><td>2000</td><td>369.7</td></tr><tr><td>2010</td><td>389.9</td></tr><tr><td>2020</td><td>414.2</td></tr><tr><td>2023</td><td>421.1</td></tr></tbody></table></div></details>
+    </figure>
+
+    <section class="prose"><h2>What changes the climate</h2><p>Over tens of thousands of years, small, regular changes in Earth's orbit and tilt, called <strong>Milankovitch cycles</strong>, change how sunlight is spread across the planet. They repeat roughly every 100,000, 41,000 and 23,000 years, and they set the rhythm of the ice ages.</p><p>Greenhouse gases amplify those changes. When the orbit warms the planet slightly, the oceans release carbon dioxide, which traps more heat. Over millions of years, moving continents and volcanic activity matter too. Around 700 million years ago, Earth may have frozen over almost entirely, an episode called Snowball Earth.</p><p>Today, carbon dioxide is above 420 parts per million. That is higher than at any point in the 800,000-year ice-core record, and it is rising much faster than the natural changes recorded there.</p></section>
+
+    <section class="note" aria-label="Field note">
+      <div class="pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+      <div><span class="label">Field note</span><h3>Dome C, Antarctica</h3><p>Scientists from the European EPICA project drilled 3,270 meters down into the ice at Dome C. The deepest ice fell as snow about 800,000 years ago. Air bubbles from the core record eight ice-age cycles, with carbon dioxide rising and falling between roughly 180 and 300 ppm.</p></div>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Key terms</h2>
+      <dl class="terms"><div><dt>Proxy</dt><dd>A natural record, such as tree rings or ice, used to estimate past climate.</dd></div><div><dt>Ice core</dt><dd>A long cylinder of ice drilled from a glacier or ice sheet, layered by year.</dd></div><div><dt>Milankovitch cycles</dt><dd>Regular changes in Earth's orbit and tilt that pace the ice ages.</dd></div><div><dt>Greenhouse effect</dt><dd>The warming of Earth's surface by gases that trap outgoing heat.</dd></div><div><dt>Interglacial</dt><dd>A warmer period between ice ages. We are living in one now.</dd></div><div><dt>Snowball Earth</dt><dd>Episodes about 700 million years ago when ice may have covered nearly the whole planet.</dd></div></dl>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Check your understanding</h2>
+      <p style="color:var(--muted)">Try each question before you open the answer. These aren't graded.</p>
+      <div class="checks"><details><summary><span class="q">Q1</span><span>How can a bubble in ancient ice tell us about the past atmosphere?</span><span class="reveal"></span></summary><div class="a">When snow compresses into ice, it seals small pockets of air. Measuring the gases in those bubbles gives a direct sample of the atmosphere from that time.</div></details><details><summary><span class="q">Q2</span><span>Name the three Milankovitch cycles' approximate lengths.</span><span class="reveal"></span></summary><div class="a">About 100,000 years, 41,000 years and 23,000 years.</div></details><details><summary><span class="q">Q3</span><span>How does today's carbon dioxide level compare with the 800,000-year ice-core record?</span><span class="reveal"></span></summary><div class="a">It is above 420 ppm. Before the industrial era, the ice-core record never went higher than about 300 ppm.</div></details></div>
+    </section>
+
+    <section class="task" aria-labelledby="task-h">
+      <span class="label">This week's activity</span>
+      <h2 id="task-h">Data lab: Read the Keeling Curve</h2>
+      <ol><li>Use the chart and its data table on this page.</li><li>Calculate the increase in CO₂ from 1960 to 1970, and from 2010 to 2020.</li><li>Compare the two rates. Has the rise sped up, slowed down or stayed the same?</li><li>In a short paragraph, connect your answer to what you learned about natural climate change.</li></ol>
+      <div class="deliver"><span class="label">To submit</span><b>Submit your two calculations and your paragraph.</b></div>
+    </section>
+
+    <div class="next">
+      <div><span class="label">Coming up in Week 8</span><div class="t">The Anthropocene</div></div><span class="chip">Unit 4 · Earth Now</span>
+    </div>
+  </main>
+</div>
+</body>
+</html>

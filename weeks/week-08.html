@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 8: The Anthropocene</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #ECEEEA;
+  --surface: #FFFFFF;
+  --sunken: #E2E5DF;
+  --ink: #1C2220;
+  --muted: #58625D;
+  --line: #D3D8D1;
+  --accent: #1E5C78;      /* slate blue: links, buttons, chart marks */
+  --accent-ink: #FFFFFF;
+  --accent-tint: #E3EEF2;
+  --now: #C98A1A;          /* ochre: highlights */
+  --now-tint: #F6ECD8;
+  --core-in: #F2C76B;
+  --u1: #CDAA72;           /* sandstone */
+  --u2: #A0604A;           /* red beds */
+  --u3: #7E8D6E;           /* shale */
+  --u4: #8FA2B5;           /* limestone */
+  --pattern: rgba(28,34,32,.22);
+  --shadow: 0 1px 2px rgba(28,34,32,.06), 0 8px 24px rgba(28,34,32,.06);
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --r: 18px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #131816; --surface: #1C2320; --sunken: #171D1A; --ink: #E5E9E3; --muted: #9AA59E; --line: #2C3531;
+    --accent: #84BCD4; --accent-ink: #0F1A1F; --accent-tint: #1A2A31; --now: #E5AA45; --now-tint: #2D261A; --core-in: #F2C76B;
+    --u1: #B8975F; --u2: #93584A; --u3: #6F7E61; --u4: #7A8DA0; --pattern: rgba(0,0,0,.32);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #131816; --surface: #1C2320; --sunken: #171D1A; --ink: #E5E9E3; --muted: #9AA59E; --line: #2C3531;
+    --accent: #84BCD4; --accent-ink: #0F1A1F; --accent-tint: #1A2A31; --now: #E5AA45; --now-tint: #2D261A; --core-in: #F2C76B;
+    --u1: #B8975F; --u2: #93584A; --u3: #6F7E61; --u4: #7A8DA0; --pattern: rgba(0,0,0,.32);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+.label { font: 500 11px/1 var(--mono); text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+.chip { font: 500 12px/1 var(--mono); letter-spacing: .04em; padding: 6px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.lith-u1 { background: radial-gradient(circle at 30% 40%, var(--pattern) 1.1px, transparent 1.6px) 0 0 / 7px 7px, radial-gradient(circle at 70% 80%, var(--pattern) .9px, transparent 1.4px) 0 0 / 9px 9px, var(--u1); }
+.lith-u2 { background: repeating-linear-gradient(0deg, transparent 0 7px, var(--pattern) 7px 8px), radial-gradient(circle, var(--pattern) .8px, transparent 1.2px) 0 0 / 6px 8px, var(--u2); }
+.lith-u3 { background: repeating-linear-gradient(0deg, transparent 0 4px, var(--pattern) 4px 5px), repeating-linear-gradient(90deg, transparent 0 9px, var(--u3) 9px 13px), var(--u3); }
+.lith-u4 { background: repeating-linear-gradient(0deg, transparent 0 10px, var(--pattern) 10px 11px), repeating-linear-gradient(90deg, transparent 0 17px, var(--pattern) 17px 18px), var(--u4); }
+
+@keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.band { background: var(--surface); border-bottom: 1px solid var(--line); }
+.strata { height: 12px; }
+.head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: end; padding-block: 36px 40px; animation: rise .5s cubic-bezier(.2,.7,.2,1) both; }
+.head-text { display: grid; gap: 16px; min-width: 0; }
+.crumbs { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.head h1 { font-size: clamp(2.4rem, 5.6vw, 4.2rem); font-weight: 800; line-height: .98; letter-spacing: -0.03em; }
+.head .lede { font-size: 18px; line-height: 1.55; color: var(--muted); margin: 0; max-width: 60ch; }
+.meta { display: flex; gap: 8px 22px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+.meta b { color: var(--ink); font-weight: 600; }
+.coremini { display: grid; gap: 3px; justify-items: center; }
+.coremini .cm { width: 34px; height: 15px; border-left: 1px solid var(--pattern); border-right: 1px solid var(--pattern); position: relative; }
+.coremini .cm.past, .coremini .cm.future { opacity: .45; }
+.coremini .cm.here { box-shadow: 0 0 0 3px var(--now); opacity: 1; }
+.coremini .cm.here::after { content: ""; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); border: 6px solid transparent; border-right-color: var(--now); }
+.coremini .label { margin-top: 8px; }
+
+.body { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; padding-block: 40px 64px; align-items: start; }
+.aside { position: sticky; top: 20px; display: grid; gap: 16px; order: 2; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; display: grid; gap: 12px; }
+.card h2 { font-size: 1.05rem; font-weight: 700; }
+.obj { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 14.5px; line-height: 1.45; }
+.obj li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; }
+.obj li::before { content: ""; width: 8px; height: 8px; margin-top: 7px; border-radius: 2px; background: var(--now); }
+.steps { margin: 0; padding: 0; list-style: none; display: grid; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.35; }
+.steps li:first-child { border-top: 0; padding-top: 0; }
+.steps li::before { content: counter(s); width: 24px; height: 24px; border-radius: 50%; background: var(--sunken); display: grid; place-items: center; font: 600 12px/1 var(--mono); color: var(--ink); }
+.steps small { display: block; font: 500 11px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+.article { display: grid; gap: 40px; min-width: 0; order: 1; }
+.prose { display: grid; gap: 16px; max-width: 66ch; }
+.prose h2 { font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 700; line-height: 1.15; }
+.prose p { margin: 0; }
+.prose strong { font-weight: 700; }
+
+figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 24px 24px 18px; display: grid; gap: 14px; }
+figure .fig-scroll { overflow-x: auto; }
+figure svg { display: block; width: 100%; min-width: 520px; height: auto; }
+figcaption { font-size: 14px; color: var(--muted); line-height: 1.5; max-width: 70ch; }
+figcaption b { color: var(--ink); }
+svg text { font-family: var(--body); font-size: 13px; }
+svg .tb { fill: var(--ink); font-weight: 600; }
+svg .tm { fill: var(--muted); font-size: 12px; }
+svg .tb-dark { fill: #1C2220; font-weight: 700; }
+svg .tb-now { fill: var(--now); font-weight: 600; font-size: 12px; }
+svg .mono { font-family: var(--mono); font-size: 11.5px; }
+.fill-ink { fill: var(--ink); } .fill-surface { fill: var(--surface); } .fill-sunken { fill: var(--sunken); }
+.fill-accent { fill: var(--accent); } .fill-accent-tint { fill: var(--accent-tint); } .fill-now { fill: var(--now); } .fill-now-tint { fill: var(--now-tint); } .fill-corein { fill: var(--core-in); }
+.fill-u1 { fill: var(--u1); } .fill-u2 { fill: var(--u2); } .fill-u3 { fill: var(--u3); } .fill-u4 { fill: var(--u4); }
+.stroke-ink { stroke: var(--ink); } .stroke-muted { stroke: var(--muted); } .stroke-line { stroke: var(--line); } .stroke-surface { stroke: var(--surface); } .stroke-accent { stroke: var(--accent); } .stroke-now { stroke: var(--now); }
+.data { font-size: 13.5px; }
+.data summary { cursor: pointer; color: var(--accent); font-weight: 600; width: max-content; }
+.data .tbl { overflow-x: auto; margin-top: 10px; }
+.data table { border-collapse: collapse; min-width: 100%; font-variant-numeric: tabular-nums; }
+.data th, .data td { text-align: left; padding: 7px 12px 7px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.data th { font: 500 11px/1.2 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+.note { background: var(--now-tint); border-radius: var(--r); padding: 24px; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; }
+.note .pin { width: 44px; height: 44px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; color: var(--now); }
+.note h3 { font-size: 1.2rem; font-weight: 700; margin: 4px 0 8px; }
+.note p { margin: 0; max-width: 64ch; }
+
+.terms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; margin: 0; }
+.terms div { padding: 14px 0; border-top: 1px solid var(--line); }
+.terms dt { font: 700 15px/1.3 var(--body); margin-bottom: 4px; }
+.terms dd { margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.5; }
+
+.checks { display: grid; gap: 10px; }
+.checks details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.checks summary { list-style: none; cursor: pointer; padding: 16px 18px; display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 12px; align-items: start; font-weight: 600; }
+.checks summary::-webkit-details-marker { display: none; }
+.checks summary .q { font: 600 12px/1 var(--mono); width: 30px; height: 26px; border-radius: 8px; background: var(--accent-tint); color: var(--accent); display: grid; place-items: center; }
+.checks summary .reveal { font: 500 12px/1.9 var(--mono); color: var(--accent); white-space: nowrap; }
+.checks details[open] summary .reveal { color: var(--muted); }
+.checks details[open] summary .reveal::before { content: "Hide"; }
+.checks details:not([open]) summary .reveal::before { content: "Show answer"; }
+.checks .a { padding: 0 18px 18px 60px; color: var(--muted); }
+.checks summary:hover .reveal { text-decoration: underline; }
+
+.task { background: var(--accent-tint); border-radius: var(--r); padding: 28px; display: grid; gap: 16px; }
+.task h2 { font-size: 1.5rem; font-weight: 700; }
+.task ol { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; max-width: 64ch; }
+.task ol li::marker { font-family: var(--mono); font-weight: 500; color: var(--accent); }
+.deliver { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); font-size: 15px; }
+.deliver b { font-weight: 700; }
+
+.next { display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--line); }
+.next .t { font: 700 1.25rem/1.2 var(--display); }
+
+@media (max-width: 900px) {
+  .body { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .aside { position: static; order: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+}
+@media (max-width: 640px) {
+  .head { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-block: 28px 32px; }
+  .coremini { grid-auto-flow: column; justify-content: start; }
+  .coremini .cm { width: 22px; height: 12px; }
+  .coremini .cm.here::after { display: none; }
+  .coremini .label { margin: 0 0 0 10px; align-self: center; }
+  .aside { grid-template-columns: minmax(0, 1fr); }
+  .terms { grid-template-columns: minmax(0, 1fr); }
+  .note { grid-template-columns: minmax(0, 1fr); }
+  figure { padding: 16px 14px 14px; }
+  .task { padding: 22px; }
+  .checks .a { padding-left: 18px; }
+}
+</style>
+</head>
+<body>
+
+<header class="band">
+  <div class="strata lith-u4"></div>
+  <div class="wrap head">
+    <div class="head-text">
+      <div class="crumbs"><span class="chip">GEOL 105</span><span class="chip">Week 8 of 8</span><span class="label">Unit 4 · Earth Now</span></div>
+      <h1>The Anthropocene</h1>
+      <p class="lede">Humans now move more sediment each year than all the world's rivers combined. Will our time leave a layer that future geologists can find? This week we ask that question, and then look back over the whole course.</p>
+      <div class="meta"><span><b>About 4 hours</b> this week</span><span><b>3</b> learning objectives</span><span><b>1</b> activity to submit</span></div>
+    </div>
+    <div class="coremini" aria-hidden="true"><div class="cm lith-u1 past" title="Week 1: Welcome to Planet Earth"></div><div class="cm lith-u1 past" title="Week 2: Rocks &amp; the Rock Cycle"></div><div class="cm lith-u2 past" title="Week 3: Plate Tectonics"></div><div class="cm lith-u2 past" title="Week 4: Earthquakes &amp; Volcanoes"></div><div class="cm lith-u3 past" title="Week 5: Reading the Rock Record"></div><div class="cm lith-u3 past" title="Week 6: Fossils &amp; Mass Extinctions"></div><div class="cm lith-u4 past" title="Week 7: Climate Through Time"></div><div class="cm lith-u4 here" title="Week 8: The Anthropocene"></div><span class="label">W08 / 08</span></div>
+  </div>
+</header>
+
+<div class="wrap body">
+  <aside class="aside">
+    <section class="card">
+      <h2>By the end of this week you can</h2>
+      <ul class="obj"><li>Evaluate evidence for a human-made signal in the rock record</li><li>Explain how geologists define the boundaries of geologic time units</li><li>Place human history on the full scale of Earth's history</li></ul>
+    </section>
+    <section class="card">
+      <h2>Your path this week</h2>
+      <ol class="steps"><li><span><small>Read · 40 min</small>A human layer</span></li><li><span><small>Study · 15 min</small>Earth's history as one year</span></li><li><span><small>Check · 15 min</small>Check your understanding</span></li><li><span><small>Project · 2 hr</small>Final project: A layer from your town</span></li><li><span><small>Reflect · 20 min</small>Field journal, final entry</span></li></ol>
+    </section>
+  </aside>
+
+  <main class="article">
+    <section class="prose"><h2>A human layer</h2><p>Geologists divide Earth's history into eons, eras, periods and epochs, each defined by changes in the rock record. We officially live in the <strong>Holocene</strong> epoch, which began about 11,700 years ago at the end of the last ice age.</p><p>Many scientists argue that human activity has changed the planet enough to define a new unit, the <strong>Anthropocene</strong>. Future geologists would find plenty of evidence: plutonium from nuclear weapons tests in the 1950s, particles of plastic and concrete, ash from burning coal, and the jump in carbon dioxide trapped in ice.</p><p>To define a new unit, geologists choose a single reference point in the rock called a <strong>golden spike</strong>. In 2024 the committee responsible voted against making the Anthropocene an official epoch, partly because human effects began at different times in different places. The term is still widely used, and the debate continues.</p></section>
+
+    <figure>
+      <div class="fig-scroll"><svg viewBox="0 0 680 270" role="img" aria-label="Earth's history compressed into one calendar year, with a zoomed view of December"><rect x="21.0" y="62" width="52.4" height="22" rx="3" class="fill-sunken"/><text x="47.2" y="77" class="tm mono" text-anchor="middle">J</text><rect x="75.4" y="62" width="47.1" height="22" rx="3" class="fill-sunken"/><text x="98.9" y="77" class="tm mono" text-anchor="middle">F</text><rect x="124.5" y="62" width="52.4" height="22" rx="3" class="fill-sunken"/><text x="150.6" y="77" class="tm mono" text-anchor="middle">M</text><rect x="178.8" y="62" width="50.6" height="22" rx="3" class="fill-sunken"/><text x="204.1" y="77" class="tm mono" text-anchor="middle">A</text><rect x="231.4" y="62" width="52.4" height="22" rx="3" class="fill-sunken"/><text x="257.6" y="77" class="tm mono" text-anchor="middle">M</text><rect x="285.8" y="62" width="50.6" height="22" rx="3" class="fill-sunken"/><text x="311.1" y="77" class="tm mono" text-anchor="middle">J</text><rect x="338.4" y="62" width="52.4" height="22" rx="3" class="fill-sunken"/><text x="364.5" y="77" class="tm mono" text-anchor="middle">J</text><rect x="392.7" y="62" width="52.4" height="22" rx="3" class="fill-sunken"/><text x="418.9" y="77" class="tm mono" text-anchor="middle">A</text><rect x="447.1" y="62" width="50.6" height="22" rx="3" class="fill-sunken"/><text x="472.4" y="77" class="tm mono" text-anchor="middle">S</text><rect x="499.7" y="62" width="52.4" height="22" rx="3" class="fill-sunken"/><text x="525.9" y="77" class="tm mono" text-anchor="middle">O</text><rect x="554.0" y="62" width="50.6" height="22" rx="3" class="fill-sunken"/><text x="579.3" y="77" class="tm mono" text-anchor="middle">N</text><rect x="606.6" y="62" width="52.4" height="22" rx="3" class="fill-now"/><text x="632.8" y="77" class="tb-dark mono" text-anchor="middle">D</text><line x1="20.0" y1="44" x2="20.0" y2="88" class="stroke-ink" stroke-width="1.5"/><text x="20.0" y="18" class="tb" text-anchor="start">Earth forms</text><text x="20.0" y="34" class="tm mono" text-anchor="start">Jan 1</text><line x1="138.4" y1="44" x2="138.4" y2="88" class="stroke-ink" stroke-width="1.5"/><text x="138.4" y="18" class="tb" text-anchor="middle">First life</text><text x="138.4" y="34" class="tm mono" text-anchor="middle">Mar 9</text><line x1="321.7" y1="44" x2="321.7" y2="88" class="stroke-ink" stroke-width="1.5"/><text x="321.7" y="18" class="tb" text-anchor="middle">Oxygen fills the air</text><text x="321.7" y="34" class="tm mono" text-anchor="middle">Jun 22</text><line x1="584.0" y1="44" x2="584.0" y2="88" class="stroke-ink" stroke-width="1.5"/><text x="584.0" y="18" class="tb" text-anchor="middle">Cambrian explosion</text><text x="584.0" y="34" class="tm mono" text-anchor="middle">Nov 18</text><path d="M605.6 86L20 150M660 86L660 150" class="stroke-line" stroke-width="1" fill="none"/><rect x="20.5" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="41.1" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="61.8" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="82.4" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="103.1" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="123.7" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="144.4" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="165.0" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="185.7" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="206.3" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="227.0" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="247.6" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="268.2" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="288.9" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="309.5" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="330.2" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="350.8" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="371.5" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="392.1" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="412.8" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="433.4" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="454.0" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="474.7" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="495.3" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="516.0" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="536.6" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="557.3" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="577.9" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="598.6" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="619.2" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><rect x="639.9" y="150" width="19.6" height="22" rx="2" class="fill-now-tint"/><text x="30.3" y="188" class="tm mono" text-anchor="middle">Dec 1</text><text x="174.8" y="188" class="tm mono" text-anchor="middle">Dec 8</text><text x="319.4" y="188" class="tm mono" text-anchor="middle">Dec 15</text><text x="463.9" y="188" class="tm mono" text-anchor="middle">Dec 22</text><text x="649.7" y="188" class="tm mono" text-anchor="middle">Dec 31</text><line x1="241.7" y1="146" x2="241.7" y2="214" class="stroke-ink" stroke-width="1.5"/><text x="241.7" y="232" class="tb" text-anchor="middle">The Great Dying</text><text x="241.7" y="248" class="tm mono" text-anchor="middle">Dec 11</text><line x1="550.5" y1="146" x2="550.5" y2="214" class="stroke-ink" stroke-width="1.5"/><text x="550.5" y="232" class="tb" text-anchor="middle">Dinosaurs disappear</text><text x="550.5" y="248" class="tm mono" text-anchor="middle">Dec 26</text><line x1="659.5" y1="132" x2="659.5" y2="176" class="stroke-ink" stroke-width="1.5"/><text x="651.5" y="116" class="tb" text-anchor="end">Homo sapiens</text><text x="651.5" y="132" class="tm mono" text-anchor="end">Dec 31, 11:25 pm</text></svg></div>
+      <figcaption>Earth's history as one calendar year. Each day stands for about 12.4 million years. The lower bar zooms in on December.</figcaption>
+      <details class="data"><summary>Show the data as a table</summary><div class="tbl"><table><thead><tr><th>Event</th><th>Million years ago</th><th>Calendar date</th></tr></thead><tbody><tr><td>Earth forms</td><td>4,540</td><td>Jan 1</td></tr><tr><td>First life</td><td>3,700</td><td>Mar 9</td></tr><tr><td>Oxygen fills the air</td><td>2,400</td><td>Jun 22</td></tr><tr><td>Cambrian explosion</td><td>539</td><td>Nov 18</td></tr><tr><td>The Great Dying</td><td>252</td><td>Dec 11</td></tr><tr><td>Dinosaurs disappear</td><td>66</td><td>Dec 26</td></tr><tr><td>Homo sapiens</td><td>0.3</td><td>Dec 31, 11:25 pm</td></tr></tbody></table></div></details>
+    </figure>
+
+    <section class="prose"><h2>All of time on one calendar</h2><p>Earth's 4.54-billion-year history is hard to picture. One way is to squeeze it into a single calendar year, starting with Earth's formation at midnight on January 1. Each day then stands for about 12.4 million years.</p><p>On that calendar, life appears in early March, but complex animals don't show up until mid-November. Dinosaurs disappear the day after Christmas. Our species arrives late on the evening of December 31, and all of recorded history fits into the last minute.</p></section>
+
+    <section class="note" aria-label="Field note">
+      <div class="pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+      <div><span class="label">Field note</span><h3>Crawford Lake, Ontario</h3><p>This small, deep lake has bottom water that almost never mixes, so each year's sediment settles in its own thin layer, like tree rings. Cores from the lake show plutonium appearing sharply in the early 1950s. In 2023 scientists proposed the lake as the golden spike for the Anthropocene. The proposal was voted down in 2024, but the lake's layers remain one of the clearest records of human impact anywhere.</p></div>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Key terms</h2>
+      <dl class="terms"><div><dt>Anthropocene</dt><dd>A proposed name for the current interval of time, defined by human impact on Earth.</dd></div><div><dt>Holocene</dt><dd>The current official epoch, which began about 11,700 years ago.</dd></div><div><dt>Golden spike</dt><dd>The single reference point in rock that marks the start of a geologic time unit. Officially a GSSP.</dd></div><div><dt>Epoch</dt><dd>A subdivision of a geologic period, such as the Holocene or the Pleistocene.</dd></div><div><dt>Technofossil</dt><dd>A human-made object likely to be preserved in the rock record, such as plastic or concrete.</dd></div><div><dt>Stratigraphic marker</dt><dd>A distinctive signal in rock layers that can be traced across the globe.</dd></div></dl>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Check your understanding</h2>
+      <p style="color:var(--muted)">Try each question before you open the answer. These aren't graded.</p>
+      <div class="checks"><details><summary><span class="q">Q1</span><span>Why is plutonium from 1950s weapons tests such a useful marker?</span><span class="reveal"></span></summary><div class="a">It spread around the whole globe, it appears suddenly in a known year, and almost none existed naturally before then.</div></details><details><summary><span class="q">Q2</span><span>If human impact is so clear, why wasn't the Anthropocene made an official epoch?</span><span class="reveal"></span></summary><div class="a">The committee had concerns about defining it by a single date in the 1950s, when human effects on Earth built up gradually over thousands of years and began at different times in different places.</div></details><details><summary><span class="q">Q3</span><span>On the one-year calendar, what date do the non-bird dinosaurs disappear?</span><span class="reveal"></span></summary><div class="a">December 26, about 66 million years ago.</div></details></div>
+    </section>
+
+    <section class="task" aria-labelledby="task-h">
+      <span class="label">This week's activity</span>
+      <h2 id="task-h">Final project: A layer from your town</h2>
+      <ol><li>Choose a place near you where you can see layers: a road cut, riverbank, construction site or beach.</li><li>Photograph it and describe the layers using what you learned in Units 1 and 3.</li><li>Imagine a geologist studying this spot 100,000 years from now. What will today's layer contain?</li><li>Present your findings as a poster or a short slide deck.</li></ol>
+      <div class="deliver"><span class="label">To submit</span><b>Submit your poster or slides. Projects will be shared in the course showcase.</b></div>
+    </section>
+
+    <div class="next">
+      <div><span class="label">End of the core</span><div class="t">That's all eight layers. Thanks for digging in.</div></div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
