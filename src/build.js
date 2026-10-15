@@ -573,6 +573,135 @@ function weekBody(w) {
 </div>`;
 }
 
+/* ------------------------------------------------------------------ course overview */
+const OVERVIEW_CSS = `
+.strata4 { display: grid; grid-template-columns: repeat(4, 1fr); height: 12px; }
+.coremini.all .cm { opacity: 1; }
+.rhythm { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; counter-reset: r; }
+.rhythm li { counter-increment: r; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 6px; align-content: start; font-size: 14px; line-height: 1.45; color: var(--muted); }
+.rhythm li::before { content: counter(r); width: 26px; height: 26px; border-radius: 50%; background: var(--accent-tint); color: var(--accent); display: grid; place-items: center; font: 600 12px/1 var(--mono); margin-bottom: 4px; }
+.rhythm b { color: var(--ink); font: 700 15px/1.2 var(--body); }
+.atlas { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.atlas-row { display: grid; grid-template-columns: 10px 52px minmax(0, 1.2fr) minmax(0, 1fr); gap: 0 16px; align-items: center; border-top: 1px solid var(--line); padding-right: 18px; }
+.atlas-row:first-child { border-top: 0; }
+.atlas-row .seg { align-self: stretch; min-height: 58px; }
+.atlas-row .n { font: 500 12px/1 var(--mono); color: var(--muted); }
+.atlas-row .ti { font-weight: 600; padding-block: 12px; }
+.atlas-row .ti small { display: block; font: 500 11px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.atlas-row .ac { font-size: 14px; color: var(--muted); }
+.weights { display: grid; gap: 14px; }
+.wt { display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr) 48px; gap: 16px; align-items: center; }
+.wt b { display: block; font-weight: 600; }
+.wt small { color: var(--muted); font-size: 13px; }
+.wt .track { height: 12px; background: var(--sunken); border-radius: 99px; overflow: hidden; }
+.wt .fill { height: 100%; background: var(--accent); border-radius: 99px; }
+.wt .pct { font: 600 15px/1 var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+.wt-total { display: flex; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+.policies { display: grid; gap: 10px; }
+.policies details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.policies summary { list-style: none; cursor: pointer; padding: 16px 18px; display: flex; justify-content: space-between; gap: 12px; font-weight: 600; }
+.policies summary::-webkit-details-marker { display: none; }
+.policies summary::after { content: "+"; font: 500 18px/1 var(--mono); color: var(--accent); }
+.policies details[open] summary::after { content: "–"; }
+.policies p { margin: 0; padding: 0 18px 18px; color: var(--muted); max-width: 66ch; }
+.prof { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 14px; align-items: center; }
+.avatar { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font: 700 19px/1 var(--display); color: #1C2220; background: radial-gradient(circle at 30% 30%, var(--u1), var(--u2)); }
+.prof b { display: block; }
+.prof span { font-size: 13px; color: var(--muted); line-height: 1.35; display: block; }
+.facts { display: grid; gap: 10px; margin: 0; font-size: 14px; }
+.facts dt { font: 500 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.facts dd { margin: 0; overflow-wrap: anywhere; }
+.help { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 14px; line-height: 1.45; }
+.help b { display: block; }
+.help span { color: var(--muted); }
+@media (max-width: 900px) { .rhythm { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .rhythm { grid-template-columns: minmax(0, 1fr); }
+  .atlas-row { grid-template-columns: 8px 40px minmax(0, 1fr); }
+  .atlas-row .ac { grid-column: 3; padding-bottom: 12px; margin-top: -6px; }
+  .wt { grid-template-columns: minmax(0, 1fr) 48px; }
+  .wt .track { grid-column: 1 / -1; grid-row: 2; }
+}`;
+
+function overviewBody() {
+  const O = C.overview, P = O.instructor;
+  const core = weeks.map(x => `<div class="cm lith-${x.unit}" title="Week ${x.n}: ${esc(x.title)}"></div>`).join("");
+  const total = O.grading.reduce((s, g) => s + g[1], 0);
+  return `
+<header class="band">
+  <div class="strata4">${unitIds.map(u => `<div class="lith-${u}"></div>`).join("")}</div>
+  <div class="wrap head">
+    <div class="head-text">
+      <div class="crumbs"><span class="chip">${esc(C.course.code)}</span><span class="chip">Start here</span><span class="label">${esc(C.course.title)}</span></div>
+      <h1>Course overview</h1>
+      <p class="lede">${esc(O.lede)}</p>
+      <div class="meta"><span><b>${weeks.length}</b> weeks</span><span><b>${unitIds.length}</b> units</span><span><b>Fully online</b>, work at your own pace each week</span></div>
+    </div>
+    <div class="coremini all" aria-hidden="true">${core}<span class="label">${weeks.length} layers</span></div>
+  </div>
+</header>
+
+<div class="wrap body">
+  <aside class="aside">
+    <section class="card">
+      <h2>Your instructor</h2>
+      <div class="prof"><div class="avatar" aria-hidden="true">${esc(P.initials)}</div><div><b>${esc(P.name)}</b><span>${esc(P.role)}</span></div></div>
+      <dl class="facts">
+        <div><dt>Email</dt><dd>${esc(P.email)}</dd></div>
+        <div><dt>Office hours</dt><dd>${esc(P.hours)}</dd></div>
+        <div><dt>Replies</dt><dd>${esc(P.reply)}</dd></div>
+      </dl>
+    </section>
+    <section class="card">
+      <h2>Getting help</h2>
+      <ul class="help">
+        <li><b>Questions about the material</b><span>Email your instructor or come to office hours.</span></li>
+        <li><b>Problems with Brightspace</b><span>Contact your school's IT help desk.</span></li>
+        <li><b>Accommodations</b><span>Contact accessibility services, then share your plan with your instructor.</span></li>
+      </ul>
+    </section>
+  </aside>
+
+  <main class="article">
+    <section class="prose"><h2>Welcome</h2>${O.welcome.map(p => `<p>${esc(p)}</p>`).join("")}</section>
+
+    <section class="prose" style="max-width:none">
+      <h2>How each week works</h2>
+      <p style="color:var(--muted)">Every week follows the same five steps, in this order.</p>
+      <ol class="rhythm">${O.rhythm.map(([k, d]) => `<li><b>${esc(k)}</b>${esc(d)}</li>`).join("")}</ol>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>The course at a glance</h2>
+      <div class="atlas">${weeks.map(w => `<div class="atlas-row"><span class="seg lith-${w.unit}"></span><span class="n">W${pad(w.n)}</span><span class="ti"><small>Unit ${C.units[w.unit].n} · ${esc(C.units[w.unit].name)}</small>${esc(w.title)}</span><span class="ac">${esc(w.activity.title)}</span></div>`).join("")}</div>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>How you're graded</h2>
+      <div class="weights">${O.grading.map(([k, v, d]) => `<div class="wt"><span><b>${esc(k)}</b><small>${esc(d)}</small></span><div class="track" role="img" aria-label="${v}%"><div class="fill" style="width:${v}%"></div></div><span class="pct">${v}%</span></div>`).join("")}
+        <div class="wt-total"><span>Check-your-understanding questions are practice and aren't graded.</span><span>Total ${total}%</span></div>
+      </div>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>What you'll need</h2>
+      <dl class="terms">${O.needs.map(([k, d]) => `<div><dt>${esc(k)}</dt><dd>${esc(d)}</dd></div>`).join("")}</dl>
+    </section>
+
+    <section class="prose" style="max-width:none">
+      <h2>Course policies</h2>
+      <div class="policies">${O.policies.map(([k, d]) => `<details><summary>${esc(k)}</summary><p>${esc(d)}</p></details>`).join("")}</div>
+    </section>
+
+    <section class="task">
+      <span class="label">Ready?</span>
+      <h2>Start with Week 1: ${esc(weeks[0].title)}</h2>
+      <p style="margin:0;max-width:60ch">Open the Week 1 module in Content. It begins with a tour of Earth from the crust to the core.</p>
+    </section>
+  </main>
+</div>`;
+}
+
 /* ------------------------------------------------------------------ output */
 const doc = (title, css, body) => `<!doctype html>
 <html lang="en">
@@ -598,9 +727,10 @@ fs.mkdirSync(path.join(ROOT, "weeks"), { recursive: true });
 weeks.forEach(w => {
   fs.writeFileSync(path.join(ROOT, "weeks", `week-${pad(w.n)}.html`), doc(`Week ${w.n}: ${w.title}`, WEEK_CSS, weekBody(w)));
 });
+fs.writeFileSync(path.join(ROOT, "weeks", "course-overview.html"), doc(`Course overview: ${C.course.title}`, WEEK_CSS + OVERVIEW_CSS, overviewBody()));
 
 // Preview of all weeks in one page (for the Claude artifact only): each week in its own section.
-const preview = `<title>Earth Through Time Weeks</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n${FONTS}\n<style>${BASE_CSS}${WEEK_CSS}
+const preview = `<title>Earth Through Time Weeks</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n${FONTS}\n<style>${BASE_CSS}${WEEK_CSS}${OVERVIEW_CSS}
 .switch { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ink); color: var(--bg); }
 .switch .wrap { display: flex; gap: 6px; align-items: center; overflow-x: auto; padding-block: 10px; }
 .switch a { color: var(--bg); text-decoration: none; font: 500 12px/1 var(--mono); padding: 8px 10px; border-radius: 8px; white-space: nowrap; }
@@ -608,7 +738,8 @@ const preview = `<title>Earth Through Time Weeks</title>\n<meta name="claude:vie
 .switch span { font: 600 13px/1 var(--body); margin-right: 8px; white-space: nowrap; }
 .wkpage { border-bottom: 8px solid var(--ink); scroll-margin-top: 50px; }
 \n</style>
-<nav class="switch"><div class="wrap"><span>Preview · jump to</span>${weeks.map(w => `<a href="#week${w.n}">Week ${w.n}</a>`).join("")}</div></nav>
+<nav class="switch"><div class="wrap"><span>Preview · jump to</span><a href="#overview">Overview</a>${weeks.map(w => `<a href="#week${w.n}">Week ${w.n}</a>`).join("")}</div></nav>
+<div class="wkpage" id="overview">${overviewBody()}</div>
 ${weeks.map(w => `<div class="wkpage" id="week${w.n}">${weekBody(w).replace(/id="task-h"/g, `id="task-h${w.n}"`).replace(/aria-labelledby="task-h"/g, `aria-labelledby="task-h${w.n}"`).replace(/rc-ah|pb-ah/g, m => m + w.n)}</div>`).join("\n")}
 `;
 fs.writeFileSync(path.join(__dirname, "weeks-preview.html"), preview);

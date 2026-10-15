@@ -9,6 +9,45 @@ module.exports = {
     u3: { n: 3, name: "Deep Time" },
     u4: { n: 4, name: "Earth Now" }
   },
+  overview: {
+    lede: "Welcome to GEOL 105. Over eight weeks you'll learn to read Earth's history in its rocks, from the planet's formation 4.54 billion years ago to the layer we're laying down today. Read this page first. It explains how the course works and how to get help.",
+    welcome: [
+      "Every cliff, riverbank and road cut is a record of the past. Geologists read those records the way historians read documents: layer by layer, looking for clues about what happened and when. By the end of this course you'll be able to do the same.",
+      "No background in science is needed. Each week builds on the one before, so work through them in order. The course is fully online, and you can do the work at any time of day as long as you meet the weekly deadlines."
+    ],
+    rhythm: [
+      ["Read", "Two short readings introduce the week's big ideas."],
+      ["Study", "A diagram or chart shows the key idea at a glance."],
+      ["Check", "Ungraded questions let you test yourself before moving on."],
+      ["Activity", "A lab, map or writing task. This is what you submit."],
+      ["Reflect", "A short field journal entry connects the week to your world."]
+    ],
+    grading: [
+      ["Weekly activities", 50, "Seven labs and tasks, Weeks 1–7"],
+      ["Final project", 30, "A layer from your town, Week 8"],
+      ["Field journal", 20, "One short entry each week"]
+    ],
+    needs: [
+      ["A computer with internet access", "Everything is online. There is no textbook to buy."],
+      ["The lab packet", "A PDF in this Start Here module, used in Weeks 1, 4 and 5."],
+      ["A phone or camera", "For photographing rocks in Week 2 and for your final project."],
+      ["About 3 to 4 hours a week", "Each week's page lists its own time estimate."]
+    ],
+    policies: [
+      ["Late work", "Activities submitted up to three days late lose 10%. After that, contact your instructor. If something serious comes up, reach out early: extensions are easier to arrange before a deadline than after."],
+      ["Academic integrity", "Your work should be your own. You're welcome to discuss ideas with classmates, but write your own answers and cite any sources you use."],
+      ["Accessibility", "If you have an accommodation plan, share it with your instructor in Week 1. Every diagram in the course has a text description, and every chart has a data table."],
+      ["Communication", "Course updates are posted as announcements. Check them at the start of each week. Email is the best way to reach your instructor."]
+    ],
+    instructor: {
+      name: "Dr. Rosa Alvarez",
+      initials: "RA",
+      role: "Associate Professor, Earth Sciences",
+      email: "ralvarez@example.edu",
+      hours: "Tuesdays & Thursdays, 1:00–2:30 pm, online",
+      reply: "Within one business day"
+    }
+  },
   weeks: [
     /* ---------------------------------------------------------------- WEEK 1 */
     {
